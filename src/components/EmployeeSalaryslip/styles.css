@@ -1,0 +1,13 @@
+kendo-pdf-document table .MuiTableHead-root .MuiTableCell-root {
+    padding:4px 5px;
+   
+}
+kendo-pdf-document table .MuiTableCell-root{
+    padding:5px;
+}
+kendo-pdf-document table .MuiTableBody-root .MuiTableRow-root:last-child .MuiTableCell-root{
+   
+    font-size: 14px;
+    padding:10px;
+    
+}
