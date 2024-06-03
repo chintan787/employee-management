@@ -38,23 +38,17 @@ export default function Register() {
     (state) => state.UserRegisterReducer?.userRegister
 );
 useEffect(() => {
-  console.log("registerButtonclick useEffect", registerButtonclick)
   if (registerButtonclick) {
-      console.log("if submit", registerButtonclick)
-      console.log("userData",userData)
           dispatch(userRegister(userData,setLoading))
   }
   // setSubmitButtonClick(false);
 }, [registerButtonclick])
 
 useEffect(() => {
-  console.log("userRegistration", userRegistration)
   
   if (registerButtonclick) {
 
        if (Object.keys(userRegistration).length !== 0) {
-          console.log("if call", userRegistration)
-          // toast("User Created Successfully");
           setTimeout(() => {
               navigate('/');
           }, [3000])
@@ -67,7 +61,6 @@ useEffect(() => {
   
   const handleRegisterValues = (e) => {
     const {value ,name} = e.target
-    console.log("onChnage",{...editInputValues,[name]:value})
     setEditInputValues({...editInputValues,[name]:value})
   }
 
@@ -75,10 +68,8 @@ useEffect(() => {
 
 
   const onSubmit = (data) => {
-    console.log(data);
     setUserData(editInputValues)
     setRegisterButtonClick(true);
-    console.log("subnitbtn", registerButtonclick)
     
   };
 
@@ -155,10 +146,10 @@ useEffect(() => {
             />{errors.user_password ? <Alert severity="error"> {errors.user_password?.message}</Alert> : ""}
             <Typography sx={styles.warningMsg}>Must be 8 characters at least</Typography>
 
-            <label>Confirm password</label>
+            {/* <label>Confirm password</label>
             <TextField sx={inputStyles.textfieldPassword} name="user_confirmPassword" placeholder='Type your confirm password' type='password' {...register("user_confirmPassword", {
               required: "Confirm Password is required", validate: (value) => {
-                /* const { password } = getValues(); */
+              
                 if (watch('user_password') !== value) {
                   return "Password and Confirm Password doesn't match";
                 }
@@ -167,7 +158,7 @@ useEffect(() => {
 
             )} autoComplete='current-password'
             onChange={handleRegisterValues}
-            />{errors.user_confirmPassword ? <Alert severity="error"> {errors.user_confirmPassword?.message}</Alert> : ""}
+            />{errors.user_confirmPassword ? <Alert severity="error"> {errors.user_confirmPassword?.message}</Alert> : ""} */}
 
             <Box sx={styles.formCondition} style={{ margin: errors.checkbox ? "8px 0" : "30px 0" }}>
               <Checkbox {...register("checkbox", { required: "Please check this Box " })} />

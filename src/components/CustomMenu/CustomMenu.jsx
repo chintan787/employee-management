@@ -14,9 +14,7 @@ const options = [
 const ITEM_HEIGHT = 48;
 
 export default function CustomMenu(props) {
-  /* const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
-   */const ITEM_HEIGHT = 48;
+  const ITEM_HEIGHT = 48;
 
   const styles = {
     menuIcon: {
@@ -24,32 +22,21 @@ export default function CustomMenu(props) {
     }
   }
 
-  /*  const handleClick = (event) => {
-   
-    setAnchorEl(event.currentTarget);
-    console.log("event",event.currentTarget)
-    console.log("event",event)
-  };  */
-  /* const handleClose = () => {
-    props.setAnchorEl(null);
-  }; */
+ 
 
   return (
     <div>
 
       <IconButton
         aria-label="more"
-        // id="long-button"
         id={props.id}
         aria-controls={props.open ? 'long-menu' : undefined}
         aria-expanded={props.open ? 'true' : undefined}
         aria-haspopup="true"
-        //  onClick={handleClick}
         onClick={props.getMenuId}
       >
         <MoreVertIcon sx={styles.menuIcon} />
       </IconButton>
-      {/* <CustomCard> */}
       <Menu
         id="long-menu"
         MenuListProps={{

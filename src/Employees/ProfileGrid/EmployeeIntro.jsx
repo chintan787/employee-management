@@ -9,7 +9,6 @@ import {
 
 export default function EmployeeIntro(props) {
     const skills = props.empProfileData?.emp_skills;
-    // console.log("skills",skills)
     return (
         <Box key={props.empProfileData.emp_code}>
             <Box sx={styles.userProfileImage}>

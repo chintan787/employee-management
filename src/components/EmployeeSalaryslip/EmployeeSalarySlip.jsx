@@ -1,207 +1,309 @@
-import React, { useEffect, useState } from 'react'
-import { getEmployees } from '../../Action/Employees'
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useEffect, useState } from "react";
+import { getEmployees } from "../../Action/Employees";
+import { genrateSalarySlip } from '../../Action/Admin';
+import { useSelector, useDispatch } from "react-redux";
 import {
   Grid,
   CircularProgress,
   Box,
   Typography,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
   Button,
-  Stack
-} from '@mui/material';
-import AutoComplete from '../SearchBar/AutoComplete';
-import { styles } from './EmployeeSalarySlip.style';
-import { inputStyles } from '../FormInput.style'
-import GetAppIcon from '@mui/icons-material/GetApp';
+  Stack,
+  TextField,
+} from "@mui/material";
+import AutoComplete from "../SearchBar/AutoComplete";
+import { styles } from "./EmployeeSalarySlip.style";
+import { inputStyles } from "../FormInput.style";
+import GetAppIcon from "@mui/icons-material/GetApp";
+import PreviewIcon from '@mui/icons-material/Preview';
+import SendIcon from '@mui/icons-material/Send';
 import { PDFExport } from "@progress/kendo-react-pdf";
+import { drawDOM, exportPDF } from "@progress/kendo-drawing";
 import "./styles.css";
-import { ToastContainer , toast} from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import {
+  Editor,
+  EditorTools,
+  EditorUtils,
+  ProseMirror,
+  EditorMountEvent,
+} from "@progress/kendo-react-editor";
+import ReactHtmlParser from "react-html-parser";
+import EditIcon from "./EditIcon";
+import ImageUploading from "react-images-uploading";
+import { ConstructionOutlined, LocalConvenienceStoreOutlined } from "@mui/icons-material";
+import { zhCN } from "date-fns/locale";
+import { Link, useNavigate } from 'react-router-dom';
+import { useForm } from "react-hook-form";
+import Alert from '@mui/material/Alert';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import SalarySlipFormat from "./SalarySlipFormat";
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 export default function EmployeeSalarySlip() {
+
   const [loading, setLoading] = useState(true);
   const [value, setValue] = useState(null);
+  const [showLoader, setShowLoader] = useState(false)
 
+  const [isDownloadClick, setIsDownloadClick] = useState(false);
+  const [showPreview, setShowPreview] = useState(false);
+  const [downloadPdf, setDownloadPdf] = useState(false);
+  const [showEmailLoader, setShowEmailLoader] = useState(false);
+  const [showMessageBox, setShowMessageBox] = useState(false);
+  const [sendEmail, setSendEmail] = useState(false);
+  const [enableSecurityHold, setEnableSecurityHold] = useState(true);
 
-  // const ref = React.createRef();
-  const pdfExportComponent = React.useRef(null);
-  const dispatch = useDispatch()
-  
-  const empData = useSelector(
-    (state) => state.EmployeesReducer?.employees
+  const currentTime = new Date();
+  const currmonth = currentTime.toLocaleString("default", { month: "long" });
+  const curryear = currentTime.getFullYear();
+  const [empInfo, setEmpInfo] = useState({
+    provident_fund: 0,
+    esi: 0,
+    loan: 0,
+    profession_tax: 200,
+    month: currmonth,
+    year: curryear,
+    leave: 0,
+    totalWorkDays: 21,
+    calculation: 0,
+    salary: 0,
+    bonus: 0,
+    paidLeaves: 0,
+    otherEarnings: 0,
+    security_hold :0
+    // gross_salary: 0,
+  });
+
+  //email form
+  const [emailData, setEmailData] = useState({
+    sender_email: 'info@strokeinfotech.com',
+    recipient_email: '',
+    subject: '',
+    greetings: '',
+    message: 'See attached salary slip.'
+  });
+  const [address, setAddress] = useState(
+    "407, Arth Business Center (ABC), Ring Road, opp. Torrent Power Sub Station, Nikol, Ahmedabad, Gujarat 382350"
   );
+  const [signatureImg, setSignatureImg] = useState("/company-stamp.png");
+  const [imageWidth, setImageWidth] = useState();
+  const signatureContent = `<p style="text-align: left; margin-bottom:0;"><img src=${signatureImg} alt="" width="100%"    /></p>`;
+  const navigate = useNavigate();
+  const pdfExportComponent = React.useRef(null);
+  const maxNumber = 69;
+  const dispatch = useDispatch();
+  const empData = useSelector((state) => state.EmployeesReducer?.employees);
+  const salarySlip = useSelector((state) => state.generateSalarySlipReducer?.salarySlip);
+  const { register, formState: { errors }, handleSubmit, watch } = useForm();
 
   useEffect(() => {
-    dispatch(getEmployees(setLoading))
-  }, [])
+    dispatch(getEmployees(setLoading, navigate));
+  }, []);
 
   useEffect(() => {
-    console.log("empData", empData)
-  }, [empData])
-
-  function createData(earnings, amount, deduction, deducationamount) {
-    return { earnings, amount, deduction, deducationamount };
-  }
-
-  const rows = [
-    createData('Basic & DA', '15900.00', 'Persnoal Telephone Charges', '240.00'),
-    createData('HRA', '2370.00', 'Other/Miscellaneous Charges', '370.00'),
-    createData('Conveyance', '262.00', "", "-"),
-    createData('', '', '', '-'),
-    createData('', '', '', '-'),
-    createData('', '', '', '-'),
-    createData('Total Addition', '18532.00', 'Total Deduction', '610.00'),
-    createData('', '', 'Total Amount (Rs.)', "17922.00"),
-
-    // createData('', '', 'NET Salary', "17922.00"),
-  ];
-
-  let fullname, designation
-  if (value !== null) {
-    console.log("value employee", value.emp_first_name)
-    fullname = value.emp_first_name + " " + value.emp_last_name
-    designation = value.emp_designation
-    console.log("full anme", fullname)
-  }
-  console.log("value employee", value)
-
- 
-  const exportPDFWithComponent = () => {
     if (value !== null) {
-      if (pdfExportComponent.current) {
-        pdfExportComponent.current.save();
-      }
+      setEmailData({
+        ...emailData,
+        recipient_email: value?.emp_email,
+        subject: `Salary Slip - ${empInfo.month} ${empInfo.year}`,
+        greetings: `Hi ${value?.emp_first_name},`
+      })
     }
-    else{
-      toast("Please Select Employee")
+    else {
+      setShowPreview(false)
     }
-    
-  };
+  }, [value]);
 
-  
+  useEffect(()=>{
+    if (value !== null) {
+      setEmailData({
+        ...emailData,
+        recipient_email: value?.emp_email,
+        subject: `Salary Slip - ${empInfo.month} ${empInfo.year}`,
+        greetings: `Hi ${value?.emp_first_name},`
+      })
+    }
+  },[showMessageBox])
 
+  useEffect(() => {
+    setEmailData({ ...emailData, subject: `Salary Slip - ${empInfo.month} ${empInfo.year}` })
+  }, [empInfo.month])
+  useEffect(() => {
+    setEmailData({ ...emailData, subject: `Salary Slip - ${empInfo.month} ${empInfo.year}` })
+  }, [empInfo.year])
+
+  //Preview
+  const handlePreview = () => {
+    if (value !== null) {
+      setIsDownloadClick(true);
+      setShowPreview(true);
+    }
+    else {
+      toast("Please Select Employee");
+    }
+  }
+
+  const handleFormchanges = (e) => {
+    const { name, value } = e.target
+    setEmailData({ ...emailData, [name]: value })
+  }
+  const onSubmit = (data) => {
+    setSendEmail(!sendEmail)
+  }
   return (
     <>
-    <Box>
-      {loading ? <Box sx={styles.emptyDiv}><CircularProgress sx={styles.loaderColor} /> </Box> :
-        <>
-          <Box sx={styles.searchemployeeDetails}>
-            <Box sx={styles.searchEmployee}>
-              <AutoComplete empData={empData} value={value} setValue={setValue} />
-            </Box>
-            <Stack direction="row" sx={styles.buttonSection}>
-             <Button sx={styles.downloadButton} variant="contained" onClick={exportPDFWithComponent} startIcon={<GetAppIcon />}>
-                Download
-              </Button>
-            </Stack>
+      <Box>
+        {loading ? (
+          <Box sx={styles.emptyDiv}>
+            <CircularProgress sx={styles.loaderColor} />{" "}
           </Box>
+        ) : (
+          <>
+            <Grid container spacing={2}>
+              <Grid item xs={6}>
+                <Box sx={styles.searchemployeeDetails}>
+                  <Box sx={styles.searchEmployee}>
+                    <AutoComplete
+                      empData={empData.filter((emp) => emp.emp_status === 1)}
+                      value={value}
+                      setValue={setValue}
+                    />
+                  </Box>
+                  <Stack direction="row" sx={styles.buttonSection}>
+                    <Button
+                      sx={styles.downloadButton}
+                      variant="contained"
+                      onClick={handlePreview}
+                      startIcon={<PreviewIcon />}
+                      style={{ color: showLoader ? "transparent" : "#fff" }}
+                    >
+                      Preview
+                      {showLoader ?
+                        <CircularProgress size={20} sx={styles.showLoaderForMail} />
+                        : ""}
 
-          <PDFExport
-              ref={pdfExportComponent}
-              scale={0.8}
-              paperSize="A4"
-              margin="1cm"
-              fileName="employee_salary_slip"
-            >
-          <Box sx={styles.wrapper} >
+                    </Button>
+                  </Stack>
+                </Box>
 
-              <Box sx={styles.companyInfo}>
-                <Typography variant='h3'>Stroke Infotech </Typography>
-                <Typography sx={styles.address}>217, Silver Square Complex, opp. Dipak School, Sanidhya Park, Nikol, Ahmedabad, Gujarat 382350 </Typography>
-                <Typography variant='h5'>Salary Slip</Typography>
-              </Box>
-              <Box sx={{ flexGrow: 1 }}>
-                <Grid container spacing={2} item sx={styles.amountDetailGrid} /* xs={8} style={{ margin: "0 auto" }} */ >
-                  <Grid item xs={12} sx={styles.employeeInfogridItem}>
-                    <label className='inputLabels'>Employee Name :</label>
-                    <Box sx={styles.inputValues} ><Typography>{fullname ? fullname : ""} </Typography></Box>
-                    {/* <TextField disabled type="text" name="emp_name" value={fullname ? fullname : ""} variant="standard" sx={styles.employeeinfotextfields} /> */}
-                  </Grid>
-                  <Grid item xs={12} sx={styles.employeeInfogridItem}>
-                    <label className='inputLabels'>Designation :</label>
-                    <Box sx={styles.inputValues} ><Typography>{designation ? designation : ""}</Typography></Box>
-                    {/* <TextField disabled type="text" name="emp_name" value={designation ? designation : ""} variant="standard" sx={styles.employeeinfotextfields} /> */}
-                  </Grid>
+                <SalarySlipFormat empInfo={empInfo} setEmpInfo={setEmpInfo} isDownloadClick={showMessageBox ? true : false} setIsDownloadClick={setIsDownloadClick} signatureImg={signatureImg} setSignatureImg={setSignatureImg} signatureContent={signatureContent} imageWidth={imageWidth} setImageWidth={setImageWidth} value={value ? value : ''}
+                  setShowEmailLoader={setShowEmailLoader} setShowMessageBox={setShowMessageBox} setDownloadPdf={setDownloadPdf} setSendEmail={setSendEmail} emailData={emailData} address={address} setAddress={setAddress} enableSecurityHold={enableSecurityHold} setEnableSecurityHold={setEnableSecurityHold} />
+              </Grid>
 
-                  <Grid item xs={12} md={6} sx={styles.employeeInfogridItem}>
-                    <label className='inputLabels'>Month :</label>
-                    <Box sx={styles.inputValues} ><Typography></Typography></Box>
-                    {/* <TextField disabled type="text" name="month" variant="standard" sx={styles.employeeinfotextfields} /> */}
-                  </Grid>
-                  <Grid item xs={12} md={6} sx={styles.employeeInfogridItem}>
-                    <label className='inputLabels'>year :</label>
-                    <Box sx={styles.inputValues} ><Typography> </Typography></Box>
-                    {/* <TextField disabled type="text" name="year" variant="standard" sx={styles.employeeinfotextfields} /> */}
-                  </Grid>
-                </Grid>
-              </Box>
+              <Grid item xs={6} >
+                {showPreview ?
+                  <>
+                    <Box style={{ paddingTop: '8px', maxWidth: '670px' }}>
+                      <Stack direction="row" sx={styles.buttonGroup}>
+                        <Button sx={styles.sendmailButton} variant="contained" startIcon={<GetAppIcon />} style={{ color: downloadPdf ? "transparent" : "#fff" }} onClick={() => { setDownloadPdf(true) }}>
+                          Download PDF
+                          {downloadPdf ?
+                            <CircularProgress size={20} sx={styles.showLoaderForMail} />
+                            : ""}
+                        </Button>
+                        <Button sx={styles.sendmailButton} variant="contained" startIcon={showMessageBox ? <VisibilityOffIcon /> : <VisibilityIcon />} style={{ color: showEmailLoader ? "transparent" : "#fff" }} onClick={() => { 
+                          setShowMessageBox(!showMessageBox);
+                          }}>
+                          {showMessageBox ? 'Hide Preview' : 'Email Preview'}
 
-            <Box sx={styles.tableContent} >
-              <TableContainer /* component={Paper} */>
-                <Table sx={styles.table} aria-label="simple table"  >
-                  <TableHead>
-                    <TableRow>
-                      <TableCell sx={styles.tableHeading}>Earnings</TableCell>
-                      <TableCell sx={styles.tableHeading}> </TableCell>
-                      <TableCell sx={styles.tableHeading}>Deduction</TableCell>
-                      <TableCell sx={styles.tableHeading}></TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {rows.map((row, index) => (
-                      <TableRow key={index}>
-                        <TableCell>{row.earnings}{ } </TableCell>
-                        <TableCell align="right">{row.amount} </TableCell>
-                        <TableCell>{row.deduction} </TableCell>
-                        <TableCell align="right" >{row.deducationamount} </TableCell>
+                        </Button>
+                      </Stack>
+                    </Box>
+                    {showMessageBox && (
+                      <Box style={{ marginTop: '40px', maxWidth: '670px' }}>
 
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </TableContainer>
-              </Box>
-              <Box sx={styles.amountInfoSection}>
-                <Typography variant='h5'>(Total Amount)</Typography>
-                <Grid container spacing={2} item xs={12} style={{ margin: "0 auto" }} >
-                  <Grid item xs={12} md={6} sx={styles.amountDetailsgridItem}>
-                    <label className='inputLabels'>Cheque No :</label>
-                    <Box sx={styles.inputValuesForAmount} ><Typography> </Typography></Box>
-                    {/* <TextField type="text" name="emp_name" variant="standard" sx={styles.amounttextfields} /> */}
-                  </Grid>
-                  <Grid item xs={12} md={6} sx={styles.amountDetailsgridItem}>
-                    <label className='inputLabels'>Name Of Bank :</label>
-                    <Box sx={styles.inputValuesForAmount} ><Typography> </Typography></Box>
-                    {/* <TextField type="text" name="emp_name" variant="standard" sx={styles.amounttextfields} /> */}
-                  </Grid>
+                        <Typography variant="h2" sx={styles.subTitle}>Edit Details</Typography>
+                        <form onSubmit={handleSubmit(onSubmit)}>
+                          <Grid container rowSpacing={1} columnSpacing={{ xs: 0, sm: 2, md: 3 }}  >
 
-                  <Grid item xs={12} md={6} sx={styles.amountDetailsgridItem}>
-                    <label className='inputLabels'>Date :</label>
-                    <Box sx={styles.inputValuesForAmount} ><Typography> </Typography></Box>
-                    {/* <TextField type="text" name="month" variant="standard" sx={styles.amounttextfields} /> */}
-                  </Grid>
+                            <Grid item xs={12} sm={6} sx={styles.infoList}>
+                              <Typography className="title">Sender Email*</Typography>
+                              <TextField type="email" sx={inputStyles.formInput}
+                                placeholder="enter email"
+                                value={emailData?.sender_email}
+                                name="sender_email"
+                                {...register("sender_email", {
+                                  required: "Sender Email is required", pattern: {
+                                    value: /^([a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+)@([a-zA-Z0-9-]+).([a-z]{2,8})(.[a-z]{2,8})?$/,
+                                    message: 'Please Enter valid Email'
+                                  }
+                                })}
+                                onChange={handleFormchanges}
+                              />
+                              {errors.sender_email ? <Alert severity="error"> {errors.sender_email?.message}</Alert> : ""}
+                            </Grid>
+                            <Grid item xs={12} sm={6} sx={styles.infoList}>
+                              <Typography className="title">Recipient Email*</Typography>
+                              <TextField type="email" sx={inputStyles.formInput}
+                                placeholder="enter email"
+                                value={emailData?.recipient_email}
+                                name="recipient_email"
+                                {...register("recipient_email", {
+                                  required: "Recipient Email is required", pattern: {
+                                    value: /^([a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+)@([a-zA-Z0-9-]+).([a-z]{2,8})(.[a-z]{2,8})?$/,
+                                    message: 'Please Enter valid Email'
+                                  }
+                                })}
+                                onChange={handleFormchanges}
+                              />
+                              {errors.recipient_email ? <Alert severity="error"> {errors.recipient_email?.message}</Alert> : ""}
+                            </Grid>
+                            <Grid item xs={12} sm={6} sx={styles.infoList}>
+                              <Typography className="title">Subject</Typography>
+                              <TextField type="text" sx={inputStyles.formInput}
+                                placeholder="enter subject"
+                                value={emailData?.subject}
+                                name="subject"
+                                onChange={handleFormchanges}
+                              />
+                            </Grid>
+                            <Grid item xs={12} sm={6} sx={styles.infoList}>
+                              <Typography className="title">Greetings</Typography>
+                              <TextField type="text" sx={inputStyles.formInput}
+                                placeholder="enter greetings"
+                                value={emailData?.greetings}
+                                name="greetings"
+                                onChange={handleFormchanges}
+                              />
+                            </Grid>
+                            <Grid item xs={12} sm={6} sx={styles.infoList}>
+                              <Typography className="title">Messages</Typography>
+                              <TextField type="text" name="message" value={emailData?.message} style={{ lineHeight: "20px" }} multiline rows={3} sx={inputStyles.formInput} placeholder="Please Enter Message" onChange={handleFormchanges}
+                              />
+                            </Grid>
+                            <Grid item xs={12} sm={12} sx={styles.infoList} style={{ textAlign: 'center', marginTop: 20 }}>
+                              <Button type="submit" sx={styles.sendmailButton} variant="contained" startIcon={<SendIcon />} style={{ color: showEmailLoader ? "transparent" : "#fff" }} >
+                                Send Email
+                                {showEmailLoader ?
+                                  <CircularProgress size={20} sx={styles.showLoaderForMail} />
+                                  : ""}
+                              </Button>
+                            </Grid>
+                          </Grid>
+                        </form>
+                      </Box>
+                    )}
 
-                </Grid>
-              </Box>
 
-              
-          </Box>
-          </PDFExport>
-          
-
-
-        </>
-      }
-       <Box sx={inputStyles.toastContainer}>
-        <ToastContainer position="bottom-right" autoClose={10000} />
+                    <SalarySlipFormat empInfo={empInfo} setEmpInfo={setEmpInfo} isDownloadClick={true} setIsDownloadClick={setIsDownloadClick} signatureImg={signatureImg} setSignatureImg={setSignatureImg} signatureContent={signatureContent} imageWidth={imageWidth} setImageWidth={setImageWidth} value={value ? value : ''}
+                      setShowEmailLoader={setShowEmailLoader} setShowMessageBox={setShowMessageBox} downloadPdf={downloadPdf} setDownloadPdf={setDownloadPdf} sendEmail={sendEmail} setSendEmail={setSendEmail} emailData={emailData} address={address}  enableSecurityHold={enableSecurityHold} />
+                  </>
+                  : ''}
+                {/* </Grow> */}
+              </Grid>
+            </Grid>
+          </>
+        )}
+        <Box sx={inputStyles.toastContainer}>
+          <ToastContainer position="bottom-right" autoClose={10000} />
+        </Box>
       </Box>
-</Box>
+
+
+
+
     </>
-  )
+  );
 }

@@ -21,7 +21,6 @@ export default function EmployeeTableMenu() {
         }
       }
       function handleValues(e){
-        console.log("menu item click",e.target)
       }
      
   return (

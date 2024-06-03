@@ -9,23 +9,13 @@ export default function ProtectedRoute(props) {
   const navigate = useNavigate();
   const stringifiedUser = localStorage.getItem('user');
   const userAsObjectAgain = JSON.parse(stringifiedUser);
-  // console.log("userAsObjectAgain", userAsObjectAgain)
 
-  useEffect(() => {
-     /*  if (userAsObjectAgain) {
-      navigate('/dashboard')
-    }
-    else{
-        navigate('/')
-    } */  
-
-  }, [])
+  
 
  
 
   return (
     <>
-      {/* {userAsObjectAgain ? <Outlet /> :  navigate('/') } */}
     <Outlet />
     </>
   )

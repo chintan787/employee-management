@@ -8,6 +8,7 @@ import {
 } from '@mui/material';
 import GetAppIcon from '@mui/icons-material/GetApp';
 import AssignmentOutlinedIcon from '@mui/icons-material/AssignmentOutlined';
+import dateFormat, { masks } from "dateformat";
 
 
 export default function BasicInfo(props) {
@@ -30,6 +31,10 @@ export default function BasicInfo(props) {
                         <Typography className="info email">{props.empProfileData.emp_email ? props.empProfileData.emp_email : "-"}</Typography>
                     </Grid>
                     <Grid item xs={6} md={4} sx={styles.infoList}>
+                        <Typography className="title">Company Email</Typography>
+                        <Typography className="info email">{props.empProfileData.emp_company_email ? props.empProfileData.emp_company_email : "-"}</Typography>
+                    </Grid>
+                    <Grid item xs={6} md={4} sx={styles.infoList}>
                         <Typography className="title">Mobile No</Typography>
                         <Typography className="info">{props.empProfileData.emp_mo_no ? props.empProfileData.emp_mo_no : "-"}</Typography>
 
@@ -44,7 +49,7 @@ export default function BasicInfo(props) {
                     </Grid>
                     <Grid item xs={6} md={4} sx={styles.infoList}>
                         <Typography className="title">Birth Date</Typography>
-                        <Typography className="info">{props.empProfileData.emp_birthdate ? props.empProfileData.emp_birthdate : "-"}</Typography>
+                        <Typography className="info">{props.empProfileData.emp_birthdate ? dateFormat(props.empProfileData.emp_birthdate,'dd-mm-yyyy') : "-"}</Typography>
                     </Grid>
                     <Grid item xs={6} md={4} sx={styles.infoList}>
                         <Typography className="title">Gender</Typography>

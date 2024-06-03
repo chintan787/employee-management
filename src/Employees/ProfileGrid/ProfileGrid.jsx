@@ -17,7 +17,7 @@ import {
     CircularProgress
 
 } from '@mui/material';
-import { Link } from 'react-router-dom'
+import { Link,useNavigate } from 'react-router-dom'
 import CustomCard from '../../components/CustomCard/CustomCard';
 import ModeEditOutlinedIcon from '@mui/icons-material/ModeEditOutlined';
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
@@ -41,28 +41,24 @@ function ProfileGrid(props) {
 
     const stringifiedUser = localStorage.getItem('user');
     const userAsObjectAgain = JSON.parse(stringifiedUser);
-    // console.log("userAsObjectAgain", userAsObjectAgain?.user_role)
     const role = userAsObjectAgain?.user_role
-
+    const navigate = useNavigate();
     const dispatch = useDispatch()
     const empProfileData = useSelector(
         (state) => state.EmployeeReducer?.employee
     );
     useEffect(() => {
         setLoading(true)
-        dispatch(getEmployee(props.id, setLoading))
+        dispatch(getEmployee(props.id, setLoading,navigate ))
     }, [])
 
     useEffect(() => {
-        console.log("empProfileData", empProfileData)
     }, [empProfileData])
 
     const skills = empProfileData.emp_skills;
-    /* const ListOfSkills = empProfileData.emp_skills?.toString() || '';
-    console.log("temp", ListOfSkills.split(',').join(', ')); */
+   
 
     const handleupdateEmpIntro = (e) => {
-        console.log(e.target.value)
     }
 
 
@@ -79,7 +75,7 @@ function ProfileGrid(props) {
                         </Link>
                         <Link to="/employees/create">
                             <Button sx={styles.primaryButton} className='buttons primaryButton' variant="contained" endIcon={<AddOutlinedIcon />}>
-                                create
+                            Add Employee
                             </Button>
                         </Link>
                     </Stack>

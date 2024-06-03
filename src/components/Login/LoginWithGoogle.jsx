@@ -7,10 +7,8 @@ const clientId= "714934587669-1f9p365fg4m1p5jsr5okt94otlqiop11.apps.googleuserco
 export default function LoginWithGoogle() {
 
 const onSuccess = (res) =>{
-    console.log("Login Success! Current user",res.profileObj)
 }
 const onFailure = (res) =>{
-    console.log("Login Failed! res",res)
 }
 const clientId= "714934587669-1f9p365fg4m1p5jsr5okt94otlqiop11.apps.googleusercontent.com";
 

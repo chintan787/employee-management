@@ -30,7 +30,6 @@ import { stylesEmpLeaves } from './EmployeeLeaves.style'
 import { styles } from '../CustomTable/CustomTable.style'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import CustomTable from '../CustomTable/CustomTable';
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import CustomCard from '../CustomCard/CustomCard';
 import OutlinedInput from '@mui/material/OutlinedInput';
@@ -82,7 +81,6 @@ export default function EmployeeLeaves(props) {
  //employee apply for leave
  const handleApplyLeave = (event) => {
   const { value, name } = event.target
-  console.log("onChange", { ...applyLeave, [name]: value })
   setApplyLeave({ ...applyLeave, [name]: value })
 }
 
@@ -92,13 +90,8 @@ export default function EmployeeLeaves(props) {
 
 
   
-  /* const handleNewEvent = () =>{
-      if (myEvents) {
-       setOkButtonClick(true)
-     } 
-   } */
+ 
   const onSubmit = (data) => {
-    console.log("data", data)
 
   };
 

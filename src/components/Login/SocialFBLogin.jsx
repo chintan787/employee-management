@@ -26,8 +26,6 @@ export default function SocialFBLogin() {
   }, [userCreateWithSocialAccountFB]);
 
   const onResolve = ({ provider, data }) => {
-    console.log("provider", provider);
-    console.log("data", data);
     if (data.email !== "") {
       //random password
       var chars =
@@ -75,10 +73,8 @@ export default function SocialFBLogin() {
   };
 
   const onLoginStart = () => {
-    console.log("log in");
   };
   const onLogoutSuccess = () => {
-    console.log("log out");
   };
   return (
     <div>
@@ -92,27 +88,7 @@ export default function SocialFBLogin() {
         onLogoutSuccess={onLogoutSuccess}
         redirect_uri={"http://localhost:3000/"}
         onResolve={onResolve}
-        //  onResolve={({ provider, data }) => {
-        //   console.log("provider",provider);
-        //   console.log("data",data);
-        //   if(data.email !== ""){
-        //     const userdata = {
-        //         user_email : data.email,
-        //         user_fname : data.first_name,
-        //         user_lname : data.last_name,
-        //         user_role : 2
-        //     }
-        //         console.log("userdata",userdata)
-        //           localStorage.setItem('user', JSON.stringify(userdata));
-        //           const stringifiedUser = localStorage.getItem('user');
-        //           const userAsObjectAgain = JSON.parse(stringifiedUser);
-        //           console.log("userAsObjectAgain", userAsObjectAgain)
-
-        //           navigate('/dashboard');
-        //       }
-        //   //  setProvider(provider);
-        //   //  setProfile(data);
-        //  }}
+      
         onReject={(err) => {
           console.log(err);
         }}

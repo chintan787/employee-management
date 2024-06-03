@@ -3,6 +3,17 @@ import { toast } from "react-toastify";
 import { USERS_LOGIN , GET_OTP , CONFIRM_OTP , SET_NEW_PASSWORD , USERS_REGISTER , GET_USER} from '../Redux/ActionTypes';
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
+const stringifiedUser = localStorage.getItem('user');
+const userAsObjectAgain = JSON.parse(stringifiedUser);
+const header = {
+  Authorization: `Bearer ${userAsObjectAgain?.access_token}`
+}
+const responseheader = {
+  'Access-Control-Allow-Origin': 'http://localhost:3000',
+  'Access-Control-Allow-Credentials': 'true',
+  'Access-Control-Allow-Methods': 'POST, PUT, PATCH, GET, DELETE, OPTIONS',
+  'Access-Control-Allow-Headers': 'Origin, X-Api-Key, X-Requested-With, Content-Type, Accept, Authorization'
+}
 
 export const userLogin = (userCredential,setLoading) => {
 
@@ -21,8 +32,6 @@ export const userLogin = (userCredential,setLoading) => {
                 if(response.data.status === 200) {
                     setLoading(false);
                 }
-                console.log("response", response.data.status);
-                console.log("response", response.data.message);
                 dispatch({
                     type: USERS_LOGIN,
                     payload: response.data,
@@ -40,7 +49,7 @@ export const getOPT = (userEmail,setOpenAlert) => {
 
     return (dispatch) => {
         
-        axios.post(`${BASE_URL}/user/forget_password`, userEmail)
+        axios.post(`${BASE_URL}/user/forgot_password`, userEmail)
             .then((response) => {
 
                /*  if (response.data.status === 401) {
@@ -51,8 +60,6 @@ export const getOPT = (userEmail,setOpenAlert) => {
                     setOpenAlert(true);
                 }  
                 toast(response.data.message);           
-                console.log("response", response.data.status);
-                console.log("response", response.data.message);
                 dispatch({
                     type: GET_OTP,
                     payload: response.data,
@@ -81,8 +88,6 @@ export const confirmOTP = (userOTP,setOpenAlert) => {
                      setOpenAlert(true)
                 }
                  toast(response.data.message);           
-                console.log("response", response.data.status);
-                console.log("response", response.data.message);
                 dispatch({
                     type : CONFIRM_OTP ,
                     payload: response.data,
@@ -108,11 +113,7 @@ export const setResetPassword = (user_email,userPassword ) => {
                     toast(response.data.message);
                 }    
                 if(response.data.status === 200){
-                    //  setOpenAlert(true)
                 }
-                //  toast(response.data.message);           
-                console.log("response", response.data.status);
-                console.log("response", response.data.message);
                 dispatch({
                     type : SET_NEW_PASSWORD ,
                     payload: response.data,
@@ -127,7 +128,7 @@ export const setResetPassword = (user_email,userPassword ) => {
 }
 
 
-export const userRegister = (userData,setLoading) => {
+export const userRegister = (userData,setLoading,) => {
 
     return (dispatch) => {
         
@@ -135,7 +136,6 @@ export const userRegister = (userData,setLoading) => {
             .then((response) => {
 
                 if (response.data.status === 401) {
-                   
                    setTimeout(()=>{
                     setLoading(false);
                    },[1000])
@@ -144,8 +144,8 @@ export const userRegister = (userData,setLoading) => {
                 if(response.data.status === 200) {
                     setLoading(false);
                 }
-                console.log("response", response.data.status);
-                console.log("response", response.data.message);
+               
+
                 dispatch({
                     type: USERS_REGISTER,
                     payload: response.data,

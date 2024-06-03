@@ -4,7 +4,7 @@ import logger from 'redux-logger'
 import thunk from 'redux-thunk'
 // import EmployeesReducer from '../Reducer/EmployeesReducer';
 import  { EmployeesReducer,EmployeeReducer, UpdateEmployeeReducer  } from '../Reducer/EmployeesReducer';
-import {CreateEmployeeReducer , DeleteEmployeeReducer ,AddLeaveReducer , GetLeavesReducer } from '../Reducer/AdminReducer';
+import {CreateEmployeeReducer , DeleteEmployeeReducer ,AddLeaveReducer , GetLeavesReducer,generateSalarySlipReducer } from '../Reducer/AdminReducer';
 import { UserLoginReducer ,OTPReducer , ConfirmOTPReducer , NewPasswordReducer ,UserRegisterReducer  } from '../Reducer/UsersReducer';
 
 const rootReducer = combineReducers({
@@ -20,7 +20,8 @@ const rootReducer = combineReducers({
     NewPasswordReducer : NewPasswordReducer,
     UserRegisterReducer:UserRegisterReducer,
     AddLeaveReducer : AddLeaveReducer,
-    GetLeavesReducer : GetLeavesReducer
+    GetLeavesReducer : GetLeavesReducer,
+    generateSalarySlipReducer : generateSalarySlipReducer
 
 })
 

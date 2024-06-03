@@ -15,7 +15,6 @@ export default function DashboardLayout(props) {
 
   const stringifiedUser = localStorage.getItem('user');
   const userAsObjectAgain = JSON.parse(stringifiedUser);
-  console.log("userAsObjectAgain", userAsObjectAgain)
  
 
   useEffect(() => {
@@ -28,8 +27,6 @@ export default function DashboardLayout(props) {
    useEffect(() => {
     
     if(userAsObjectAgain.user_role === 2 ){
-      console.log('pathname', location.pathname);
-      console.log("if call",userAsObjectAgain.user_role)
 
       if(location.pathname === '/employees/create'){
         navigate('/dashboard')
@@ -40,7 +37,6 @@ export default function DashboardLayout(props) {
       if(location.pathname === '/payroll'){
         navigate('/dashboard')
       } 
-     
     }
   }, []) 
 

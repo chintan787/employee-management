@@ -53,10 +53,8 @@ export default function EmailForm(props) {
     }, [getUserOPT])
 
     const onSubmit = (data) => {
-        console.log(data);
         setUserEmail(props.isEmail)
         setResetPasswordButtonClick(true);
-        console.log("resetPasswordtButtonClick", resetPasswordtButtonClick)
 
     };
 

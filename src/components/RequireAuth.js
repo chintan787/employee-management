@@ -8,8 +8,6 @@ export const  RequireAuth = ({children}) => {
     const auth = useAuth();
     const stringifiedUser = localStorage.getItem('user');
     const userAsObjectAgain = JSON.parse(stringifiedUser);
-    // const user = userAsObjectAgain.user_fname
-    // console.log("auth",auth.userCredential)
 
     if(!auth.user)
     {

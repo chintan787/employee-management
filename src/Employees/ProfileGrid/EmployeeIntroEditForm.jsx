@@ -25,6 +25,8 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useForm } from "react-hook-form";
 import Alert from '@mui/material/Alert';
+import { useNavigate } from "react-router-dom";
+
 
 export default function EmployeeIntroEditForm(props) {
 
@@ -41,7 +43,7 @@ export default function EmployeeIntroEditForm(props) {
     const [loading, setLoading] = useState(false);
 
     const { register, formState: { errors }, handleSubmit, watch } = useForm();
-
+    const navigate = useNavigate();
     const maxNumber = 69;
     const id = props.empProfileData.emp_code
     const dispatch = useDispatch()
@@ -58,7 +60,6 @@ export default function EmployeeIntroEditForm(props) {
     const skillsValues = isEditInputValues.emp_skills?.toString() || '';
     const ListOfSkills = ["java", "Spring", "MySql", "HTML", "CSS", "java-script", "Bootstrap", "Matirial-UI", "node js", "mongodb", "React Js"]
 
-    // console.log("isEditInputValues", isEditInputValues);
     function handleEmployeeIntroChangeValues(event) {
         const { value, name } = event.target;
         setIsEditInputValues({ ...isEditInputValues, [name]: value })
@@ -85,14 +86,14 @@ export default function EmployeeIntroEditForm(props) {
     
     useEffect(() => {
         if (saveButtonclick) {
-            dispatch(updateEmployeeProfile(id, updateEmp,setLoading))
+            dispatch(updateEmployeeProfile(id, updateEmp,setLoading,navigate))
         }
     }, [saveButtonclick])
 
     useEffect(() => {
         if (saveButtonclick) {
             if (Object.keys(empProfileDataUpdated).length !== 0) {
-                dispatch(getEmployee(id, setLoading))
+                dispatch(getEmployee(id, setLoading,navigate))
                 setTimeout(()=>{
                     toast("Data Updated Successfully");
                 },[1000])

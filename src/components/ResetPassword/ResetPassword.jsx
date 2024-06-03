@@ -27,7 +27,6 @@ export default function ResetPassword() {
 
     const { register, formState: { errors }, handleSubmit, watch } = useForm();
    
-    // console.log("isEmail",isEmail?.user_email)
     const userEmail = isEmail?.user_email
 
     return (

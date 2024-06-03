@@ -8,7 +8,6 @@ export default function Layout(props) {
   const navigate = useNavigate();
   const stringifiedUser = localStorage.getItem('user');
   const userAsObjectAgain = JSON.parse(stringifiedUser);
-  // console.log("userAsObjectAgain", userAsObjectAgain)
 
    useEffect(() => {
     if (userAsObjectAgain) {

@@ -2,7 +2,7 @@ import {
     CREATE_EMPLOYEE,
     DELETE_EMPLOYEE,
     ADD_LEAVE,
-    GET_LEAVES
+    GET_LEAVES,GENERATE_SALARYSLIP
 } from '../Redux/ActionTypes'
 
 const intialCreateEmployee = {
@@ -17,6 +17,9 @@ const initialaddLeaveState = {
 }
 const initialgetLeavesState = {
     getleaves: []
+}
+const initialcreateSalarySlip = {
+    salarySlip: []
 }
 
 
@@ -71,6 +74,20 @@ export const GetLeavesReducer = (state = initialgetLeavesState, action) => {
             return {
                 // ...state,
                 getleaves: action.payload.data,
+            }
+        default: return state
+    }
+
+
+}
+
+export const generateSalarySlipReducer = (state = initialcreateSalarySlip, action) => {
+    switch (action.type) {
+
+        case GENERATE_SALARYSLIP:
+            return {
+                // ...state,
+                salarySlip: action.payload.data,
             }
         default: return state
     }

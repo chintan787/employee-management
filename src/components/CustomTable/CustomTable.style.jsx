@@ -4,10 +4,10 @@ export const styles = {
         // maxWidth:700,
         minWidth: 250,
         // minWidth: 700,
-       /*  tableLayout: {
-            xs: "auto",
-            md: "fixed"
-        }, */
+        /*  tableLayout: {
+             xs: "auto",
+             md: "fixed"
+         }, */
         /* "fixed", */
         // tableLayout:"auto",
         "& .MuiList-root .MuiMenuItem-root": {
@@ -61,7 +61,7 @@ export const styles = {
             boxShadow: "inset 0px -1px 0px #EDF2F7",
             padding: "16px 24px",
             overflowWrap: "break-word",
-            wordWrap: "break-word"  
+            wordWrap: "break-word"
         },
     },
     projectName: {
@@ -183,5 +183,46 @@ export const styles = {
     showLoaderForMenuList: {
         color: "primary.dark",
         position: "absolute"
-    }
+    },
+    secondaryButton: {
+        marginRight:"20px",
+        fontSize: "14px",
+        lineHeight: "14px",
+        fontWeight: "600",
+        padding: "14px",
+        borderRadius: "8px",
+        textTransform: "capitalize",
+      
+        background: "#fff",
+        color: "info.dark",
+        borderColor: "#dfe0e5",
+        "&:hover": {
+            // background: "#fff",
+            // borderColor: "primary.dark",
+            color:"#fff",
+            backgroundColor: "#4C6FFF",
+            borderColor:"#4C6FFF",
+            boxShadow: "0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12)"
+        }
+    },
+    primaryButton: {
+        marginRight:"20px",
+
+        fontSize: "14px",
+        lineHeight: "14px",
+        fontWeight: "600",
+        padding: "14px",
+        borderRadius: "8px",
+        textTransform: "capitalize",
+        boxShadow: "none",
+        backgroundColor: "primary.dark",
+        color: "#fff",
+        "&.Mui-disabled": {
+            // backgroundColor: "primary.dark",
+            backgroundColor: "#4C6FFF",
+            boxShadow: "0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12)"
+        }
+        /*  marginRight:"20px",
+         marginTop:"20px" */
+    },
 }

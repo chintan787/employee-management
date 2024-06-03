@@ -32,7 +32,84 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
+}
+
+
+
+kendo-pdf-document .pdf-signature-image {
+  max-width: 100%;
+}
+
+kendo-pdf-document .pdf-signature-image img {
+  width: 100%;
+}
+
+kendo-pdf-document .MuiTableRow-root:last-of-type td {
+  padding: 2px 2px;
+  margin: 0px;
+  line-height: 10px;
+}
+
+kendo-pdf-document tr td:nth-child(even) {
+  padding: 2px 1px;
+  margin: 0 !important;
+}
+
+kendo-pdf-document tr td p {
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+
+kendo-pdf-document .leavesCount {
+  margin-left: 0;
+}
+
+kendo-pdf-document .leaveSection .inputLabels {
+  padding-right: 0px;
+}
+
+
+kendo-pdf-document table tr td p {
+  padding: 0px !important;
+}
+
+kendo-pdf-document .hideSection {
+  display: none;
+}
+
+kendo-pdf-document .salary-note {
+  text-align: center;
+  width: 100%;
+  padding-left: 25px;
+}
+
+kendo-pdf-document .company-logo {
+  height: 100%;
+  width: 60%;
+}
+
+kendo-pdf-document .signatureLabel,
+kendo-pdf-document .salaryslipLabel {
+  font-weight: 700;
+}
+
+kendo-pdf-document .tableContent,
+kendo-pdf-document .companyInfoNew,
+kendo-pdf-document .signatureContainer,
+kendo-pdf-document .pdfwrapper,
+kendo-pdf-document .amountDetailGrid {
+  max-width: 750px;
+}
+
+kendo-pdf-document .pdfwrapper {
+  margin-top: 0;
+  margin-bottom: 24px;
+  border: none;
 }

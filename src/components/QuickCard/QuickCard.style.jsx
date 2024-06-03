@@ -13,6 +13,7 @@ export const styles = {
     },
     cardContent: {
         display: "flex",
+        alignItems:'center',
          padding:"26px 24px",
         minWidth:"255px",
         "&.MuiCardContent-root:last-child ": {
@@ -24,6 +25,9 @@ export const styles = {
     marginBottom: "30px",
     }, 
     cardImage: {
+        background:"#ffeef1",
+        padding:1.5,
+        borderRadius:2,
         marginRight: "10px",
         "&:last-child": {
             marginRight: 0

@@ -15,7 +15,6 @@ const filter = createFilterOptions();
 export default function AutoComplete(props) {
     
   
-    // const [value, setValue] = useState(null);
   return (
     <>
     <Autocomplete
@@ -39,8 +38,6 @@ export default function AutoComplete(props) {
     filterOptions={(options, params) => {
       const filtered = filter(options, params);
       const { inputValue } = params;
-      // Suggest the creation of a new value
-    //   const isExisting = options.some((option) => inputValue === option.emp_first_name && inputValue === option.emp_last_name);
       return filtered;
     }}
     selectOnFocus
@@ -64,10 +61,8 @@ export default function AutoComplete(props) {
 
     }}
     renderOption={(props, option) => <li {...props} style={{  textTransform: "capitalize",}}>{option.emp_first_name} {option.emp_last_name}</li>}
-    // sx={{ width: 300 }}
     freeSolo
     renderInput={(params) => (
-        // <SearchBar  {...params} />
         <TextField placeholder='Select Employee'  sx={inputStyles.formInput}  style={{textTransform:"capitalize"}} {...params}   />
     )}
   />

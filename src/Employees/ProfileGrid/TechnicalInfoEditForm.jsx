@@ -16,21 +16,50 @@ import {
 } from '@mui/material';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom';
+import dateFormat, { masks } from "dateformat";
+
 
 export default function TechnicalInfoEditForm(props) {
-
 
     const [saveButtonclick, setSaveButtonClick] = useState(false);
     const [updateEmp, setUpdateEmp] = useState()
     const [isEditInputValues, setIsEditInputValues] = useState(props.empProfileData ? props.empProfileData : "")
     const [loading, setLoading] = useState(false);
+    const [empNextIncrement, setEmpNextIncrement] = useState();
+    const [min, setMin] = useState();
 
     const id = props.empProfileData?.emp_code
     const dispatch = useDispatch()
+    const navigate = useNavigate();
+
+    const stringifiedUser = localStorage.getItem('user');
+    const userAsObjectAgain = JSON.parse(stringifiedUser);
+    const role = userAsObjectAgain?.user_role
+
+    useEffect(()=>{
+        // props.empProfileData ? props.empProfileData.emp_next_increment: "" 
+        if( props.empProfileData?.emp_next_increment !== null && props.empProfileData?.emp_next_increment !== "")
+        {
+            const temp = props.empProfileData?.emp_next_increment.split('-');
+            const newDate = temp[1]+"-"+temp[0];
+            setEmpNextIncrement(newDate)
+        }
+    },[])
 
     function handleUpdateTechnicalInfo(event) {
         const { value, name } = event.target
-        setIsEditInputValues({ ...isEditInputValues, [name]: value })
+        if (name === "emp_next_increment") {
+            setEmpNextIncrement(value)
+            setIsEditInputValues({ ...isEditInputValues, [name]: dateFormat(value, 'mm-yyyy') })
+        }
+        else if(name === "emp_status")
+        {
+            setIsEditInputValues({ ...isEditInputValues, [name]: value.replace(/[^0-1]/g, '') })
+        }
+        else {
+            setIsEditInputValues({ ...isEditInputValues, [name]: value })
+        }
     }
     const handleupdateEmpIntro = (e) => {
         e.preventDefault();
@@ -49,17 +78,17 @@ export default function TechnicalInfoEditForm(props) {
 
     useEffect(() => {
         if (saveButtonclick) {
-            dispatch(updateEmployeeProfile(id, updateEmp, setLoading))
+            dispatch(updateEmployeeProfile(id, updateEmp, setLoading, navigate))
         }
     }, [saveButtonclick])
 
     useEffect(() => {
         if (saveButtonclick) {
             if (Object.keys(empProfileDataUpdated).length !== 0) {
-                dispatch(getEmployee(id, setLoading))
-                setTimeout(()=>{
+                dispatch(getEmployee(id, setLoading, navigate))
+                setTimeout(() => {
                     toast("Data Updated Successfully");
-                },[1000])
+                }, [1000])
 
                 props.setIsEditTechnicalInfoOpen(!props.isEditTechnicalInfoOpen)
             }
@@ -75,6 +104,21 @@ export default function TechnicalInfoEditForm(props) {
         }
     }, [empProfileDataUpdated])
 
+    useEffect(() => {
+        var dtToday = new Date();
+        var month = dtToday.getMonth() + 1;
+        var day = dtToday.getDate();
+        var year = dtToday.getFullYear();
+        if (month < 10)
+            month = '0' + month.toString();
+        if (day < 10)
+            day = '0' + day.toString();
+
+        var minDate = year + '-' + month;
+        setMin(minDate);
+    }, [])
+
+
     return (
         <>
             <Box sx={styles.empInfo}>
@@ -89,10 +133,30 @@ export default function TechnicalInfoEditForm(props) {
                         <Typography className="title">Date of Joining</Typography>
                         <TextField type="date" sx={inputStyles.formInput} placeholder="select date of joining" name="emp_joining_date" value={isEditInputValues?.emp_joining_date} onChange={handleUpdateTechnicalInfo} />
                     </Grid>
-                    <Grid item xs={6} sx={styles.infoList}>
-                        <Typography className="title">Total Experience</Typography>  {/*  .replace(/[^0-9]/g, '') */}
+                    {/* <Grid item xs={6} sx={styles.infoList}>
+                        <Typography className="title">Total Experience</Typography>
                         <TextField type="number" sx={inputStyles.formInput} placeholder="enter experience" name="emp_total_experience" value={isEditInputValues.emp_total_experience ? isEditInputValues.emp_total_experience.replace(/[^0-9]/g, '') : ""} onChange={handleUpdateTechnicalInfo} />
-                    </Grid>
+                    </Grid> */}
+                    {role === 1 &&
+                        (
+                            <>
+                                <Grid item xs={6} sx={styles.infoList}>
+                                    <Typography className="title">Next Increment</Typography>
+                                    <TextField inputProps={{ min: min }} type="month" sx={inputStyles.formInput} id="txtDate" placeholder="select date of next increment" 
+                                    // value={isEditInputValues.emp_next_increment ? isEditInputValues.emp_next_increment : empNextIncrement} 
+                                    value={empNextIncrement ? empNextIncrement :""}
+                                    name="emp_next_increment" onChange={handleUpdateTechnicalInfo} />
+                                </Grid>
+
+                                <Grid item xs={6} sx={styles.infoList}>
+                                    <Typography className="title">Status</Typography>
+                                    <TextField type="number" sx={inputStyles.formInput}  placeholder="enter status" name="emp_status" value={isEditInputValues?.emp_status } onChange={handleUpdateTechnicalInfo} />
+                                    {/* inputProps={{   maxLength: 0,}} */}
+                                    {/* .replace(/[^0-1]/g, '') */}
+                                </Grid>
+                            </>
+                        )}
+
                 </Grid>
 
             </Box>

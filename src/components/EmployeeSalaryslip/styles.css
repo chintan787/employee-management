@@ -11,3 +11,7 @@ kendo-pdf-document table .MuiTableBody-root .MuiTableRow-root:last-child .MuiTab
     padding:10px;
     
 }
+
+kendo-pdf-document .hideSection{
+    display: none;
+   }

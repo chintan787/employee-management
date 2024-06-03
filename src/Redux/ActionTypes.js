@@ -19,3 +19,5 @@ export const USERS_REGISTER = 'USERS_REGISTER'
 export const ADD_LEAVE = 'ADD_LEAVE'
 export const GET_LEAVES = 'GET_LEAVES'
 
+export const GENERATE_SALARYSLIP ='GENERATE_SALARYSLIP'
+ 

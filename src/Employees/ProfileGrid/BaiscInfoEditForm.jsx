@@ -27,6 +27,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useForm } from "react-hook-form";
 import Alert from '@mui/material/Alert';
 import OutlinedInput from '@mui/material/OutlinedInput';
+import { useNavigate } from "react-router-dom";
 
 /* import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -42,7 +43,7 @@ export default function BaiscInfoEditForm(props) {
     const [loading, setLoading] = useState(false);
 
     const { register, formState: { errors }, handleSubmit, watch } = useForm();
-
+    const navigate = useNavigate();
     const id = props.empProfileData?.emp_code
     const maxNumber = 69;
     const ITEM_HEIGHT = 48;
@@ -58,21 +59,20 @@ export default function BaiscInfoEditForm(props) {
     const dispatch = useDispatch()
     const statusData = [ "single","married", "widowed", "divorced"]
     const data = [
-        { city: "Philps", state: "New york" },
-        { city: "Square", state: "Chicago" },
-        { city: "Market", state: "New york" },
+        // { city: "Philps", state: "New york" },
+        // { city: "Square", state: "Chicago" },
+        // { city: "Market", state: "New york" },
 
-        { city: "Booket", state: "Texas" },
-        { city: "Brookfield", state: "Florida" },
-        { city: "old street", state: "florida" },
-        { city: "ahmedabad", state: "gujarat" },
-        { city: "Jaipur", state: "Rajasthan" },
+        // { city: "Booket", state: "Texas" },
+        // { city: "Brookfield", state: "Florida" },
+        // { city: "old street", state: "florida" },
+        { city: "Ahmedabad", state: "Gujarat" },
+        // { city: "Jaipur", state: "Rajasthan" },
 
     ]
-
+    const cityData = ["Anand","Ahmedabad","Bhavnagar","Gandhinagar","Junagadh","Rajkot","Surat","Una","Vadodara",]
 
     const statusDatalowerCase = statusData.map(name => name.toLowerCase());
-    // console.log("lowerCasedata",statusDatalowerCase);
     const dataLowerCase = JSON.stringify(data, function (key, value) {
         if (key == "city") {
             return value.toLowerCase();
@@ -99,14 +99,14 @@ export default function BaiscInfoEditForm(props) {
     );
     useEffect(() => {
         if (saveButtonclick) {
-            dispatch(updateEmployeeProfile(id, updateEmp,setLoading))
+            dispatch(updateEmployeeProfile(id, updateEmp,setLoading,navigate))
         }
     }, [saveButtonclick])
 
     useEffect(() => {
         if (saveButtonclick) {
             if (Object.keys(empProfileDataUpdated).length !== 0) {
-                dispatch(getEmployee(id, setLoading))
+                dispatch(getEmployee(id, setLoading,navigate))
                 setTimeout(()=>{
                     toast("Data Updated Successfully");
                 },[1000])
@@ -114,13 +114,7 @@ export default function BaiscInfoEditForm(props) {
                 props.setIsEditBasicInfoOpen(!props.isEditBasicInfoOpen)
                 
             }
-            /* if (empProfileDataUpdated.acknowledged !== undefined) {
-                if (empProfileDataUpdated.acknowledged) {
-                    toast("Data Updated Successfully");
-                    console.log("empProfileDataUpdated",empProfileDataUpdated);
-                     props.setIsEditBasicInfoOpen(!props.isEditBasicInfoOpen)
-                }
-            } */
+           
             else {
                 props.setIsEditBasicInfoOpen(!props.isEditBasicInfoOpen)
             }
@@ -171,6 +165,16 @@ export default function BaiscInfoEditForm(props) {
                             })} value={isEditInputValues?.emp_email} onChange={handleChangeBasicInfoValues} />
                             {errors.emp_email ? <Alert severity="error"> {errors.emp_email?.message}</Alert> : ""}
                         </Grid>
+                        <Grid item xs={6} sx={styles.infoList}>
+                            <Typography className="title">Company Email</Typography>
+                            <TextField type="email" sx={inputStyles.formInput} placeholder="enter company email" name="emp_company_email" {...register("emp_company_email", {
+                                required: "Email is required", pattern: {
+                                    value: /^([a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+)@([a-zA-Z0-9-]+).([a-z]{2,8})(.[a-z]{2,8})?$/,
+                                    message: 'Please Enter valid Email'
+                                }
+                            })} value={isEditInputValues?.emp_company_email} onChange={handleChangeBasicInfoValues} />
+                            {errors.emp_company_email ? <Alert severity="error"> {errors.emp_company_email?.message}</Alert> : ""}
+                        </Grid>
 
                         <Grid item xs={6} sx={styles.infoList}>
                             <Typography className="title">Mobile No</Typography>
@@ -209,7 +213,7 @@ export default function BaiscInfoEditForm(props) {
                                 input={<OutlinedInput />}
                                 renderValue={(selected) => {
                                     if (selected.length === 0) {
-                                        return <Typography sx={inputStyles.selectPlaceholder}>Select Sate</Typography>;
+                                        return <Typography sx={inputStyles.selectPlaceholder}>Select State</Typography>;
                                     }
 
                                     return selected;
@@ -231,24 +235,46 @@ export default function BaiscInfoEditForm(props) {
 
                         </Grid>
 
-                        <Grid item xs={6} sx={styles.infoList}>
+                        <Grid item xs={6}  sx={styles.infoList}>
+                                                <Typography className="title">City</Typography>
+                                              
+                                                <Select
+                                                    sx={inputStyles.formSelectInput}
+                                                    displayEmpty
+                                                    name="emp_city"
+                                                    // value={isEditInputValues.emp_city ? isEditInputValues.emp_city : ""}
+                                                    value={isEditInputValues?.emp_city.toLowerCase()}
+                                                    // onChange={handleProfileValues}
+                                                    onChange={handleChangeBasicInfoValues}
+                                                    input={<OutlinedInput />}
+                                                    renderValue={(selected) => {
+                                                        if (selected.length === 0) {
+                                                            return <Typography sx={inputStyles.selectPlaceholder}>Select City</Typography>;
+                                                        }
+
+                                                        return selected;
+                                                    }}
+                                                    MenuProps={MenuProps}
+                                                    inputProps={{ 'aria-label': 'Without label' }}
+                                                >
+                                                    <MenuItem disabled value="">
+                                                        <em>Select City</em>
+                                                    </MenuItem>
+
+                                                   { isEditInputValues?.emp_state !== "" ?
+                                                   cityData.map((option, index) => (
+                                                        <MenuItem key={index} value={option}>
+                                                            {option}
+                                                        </MenuItem>
+                                                    ))
+                                                    : ""
+                                                    }
+                                                </Select>
+                                            </Grid>
+
+                        {/* <Grid item xs={6} sx={styles.infoList}>
                             <Typography className="title">City</Typography>
-                            {/* <TextField type="text" sx={inputStyles.formInput} /> */}
-                            {/*  <TextField type="text" sx={inputStyles.formSelectInput} placeholder="select city"
-                                select
-                                
-                                name="emp_city"
-                                value={isEditInputValues?.emp_city.toLowerCase()}
-                                onChange={handleChangeBasicInfoValues} >
-                               
-                                {data.filter(function (item) {
-                                    return item.state.toLowerCase() === isEditInputValues.emp_state.toLowerCase();
-                                }).map((option, index) => (
-                                    <MenuItem key={index} value={option.city.toLowerCase()}>
-                                        {option.city.toLowerCase()}
-                                    </MenuItem>
-                                ))}
-                            </TextField> */}
+                           
                             <Select
                                 sx={inputStyles.formSelectInput}
                                 displayEmpty
@@ -278,7 +304,7 @@ export default function BaiscInfoEditForm(props) {
                                 ))}
                             </Select>
 
-                        </Grid>
+                        </Grid> */}
 
                         <Grid item xs={6} sx={styles.infoList}>
                             <Typography className="title">Birth Date</Typography>

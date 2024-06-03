@@ -12,19 +12,6 @@ import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 
 export default function SearchBar(props) {
 
- /*  const styles = {
-    searchField : {
-      width:"100%",
-      "&::-webkit-input-placeholder":{
-        fontSize: "15px",
-        lineHeight: "15px",
-        fontWeight: "500",
-        color: "grey.main",
-        overflow: "visible",
-         opacity:"1",
-    } 
-    }
-  } */
 
  
 

@@ -20,7 +20,8 @@ export default function QuickCard(props) {
                 <CardContent sx={styles.cardContent}>
                     
                     <Box sx={styles.cardImage} className={`template-${props.template}`}>
-                        <img src={props.icon} alt='base' />
+                        {/* <img src={props.icon} alt='base' /> */}
+                        {props.icon}
                     </Box>
 
                     <Box>

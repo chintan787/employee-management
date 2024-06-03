@@ -20,8 +20,6 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useCookies } from "react-cookie";
 import LoadingButton from '@mui/lab/LoadingButton';
-import FacebookLogin from 'react-facebook-login';
-import GoogleLogin from 'react-google-login';
 import SocialLogin from './SocialLogin';
 import SocialFBLogin from './SocialFBLogin';
 // import LoginWithGoogle from './LoginWithGoogle';
@@ -40,15 +38,13 @@ export default function LoginNew() {
   const [loading, setLoading] = useState(false);
 
 
-  // console.log("cookies", cookies)
-  // const { register, formState, handleSubmit } = useForm();
   const { register, formState: { errors }, handleSubmit, watch } = useForm();
   const navigate = useNavigate();
   const dispatch = useDispatch()
 
   const handleUserCredential = (event) => {
     const { value, name } = event.target
-    setIsEditInputValues({ ...isEditInputValues, [name]: value })
+      setIsEditInputValues({ ...isEditInputValues, [name]: value })
   }
 
   const userLoginReducer = useSelector(
@@ -64,11 +60,9 @@ export default function LoginNew() {
 
     if (loginButtonclick) {
       if (userLoginReducer !== undefined) {
-        console.log("userLoginReducer",userLoginReducer)
         localStorage.setItem('user', JSON.stringify(userLoginReducer));
         const stringifiedUser = localStorage.getItem('user');
         const userAsObjectAgain = JSON.parse(stringifiedUser);
-        console.log("userAsObjectAgain", userAsObjectAgain)
 
         setCookie("user", userAsObjectAgain.access_token, {
           path: "/",
@@ -87,28 +81,6 @@ export default function LoginNew() {
 
   };
 
-  /* useEffect(() => {
-    if (formState.errors) {
-      if (formState.errors.user_email !== undefined) {
-        toast("Email is required");
-      }
-      if (formState.errors.user_password !== undefined) {
-        toast("password is required");
-      }
-    }
-  }, [formState]); */
-
-// facebook login
-  // const responseFacebook = (response) => {
-  //   console.log("Facebook response", response);
-  // }
-  // const responseGoogle = (response) => {
-  //   console.log("google response", response);
-  //   console.log("response profile", response.profileObj);
-  // }
-  // const componentClicked = data => {
-  //   console.log("data", data)
-  // }
 
   return (
 <>
@@ -135,11 +107,16 @@ export default function LoginNew() {
             {errors.user_email ? <Alert severity="error"> {errors.user_email?.message}</Alert> : ""}
 
             <label>Password</label>
-            <TextField sx={inputStyles.textfieldPassword} name="user_password" placeholder='Password' type='password' autoComplete='current-password' {...register("user_password", { required: "password is required" })}
+            <TextField sx={inputStyles.textfieldPassword} 
+            name="user_password" 
+            placeholder='Password' 
+            type='password'
+             autoComplete='current-password' {...register("user_password", { required: "password is required" })}
               onChange={handleUserCredential} />
             {errors.user_password ? <Alert severity="error"> {errors.user_password?.message}</Alert> : ""}
 
             <Typography><Link className='forgot-password' to='/reset-password'>Forgot your password?</Link></Typography>
+
 
             {/* <Button type="submit" sx={styles.formButton} variant='contained' disabled>Sign in</Button> */}
             <LoadingButton
@@ -169,6 +146,7 @@ export default function LoginNew() {
 
         <SocialLogin/>
         <SocialFBLogin/>
+        
 
           {/* <Box className='card'><Link to='/' ><img className='social-icons' src='/search.png' alt='google' />
           </Link></Box> */}
