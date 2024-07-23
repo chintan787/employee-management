@@ -1,18 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import { getEmployees, getEmployee } from '../../Action/Employees'
-import { deleteEmployee } from '../../Action/Admin'
+import { deleteEmployee, deleteEmployeeByStatus } from '../../Action/Admin'
 import { useSelector, useDispatch } from 'react-redux';
 import {
   TableBody,
-  TableHead,
   TableCell,
   TableRow,
   Avatar,
   MenuItem,
   Box,
   CircularProgress,
-  TablePagination,
-  avatarClasses,
+
 } from '@mui/material';
 import { styles } from '../CustomTable/CustomTable.style';
 import { inputStyles } from '../FormInput.style';
@@ -53,6 +51,8 @@ export default function EmployeesTable(props) {
   const empData = useSelector(
     (state) => state.EmployeesReducer?.employees
   );
+  //delete by status
+  const deleteEmpStatus = useSelector((state) => state.DeleteEmployeebyStatusReducer?.inactive)
   // delete 
   const deleteEmpData = useSelector(
     (state) => state.DeleteEmployeeReducer?.deleteEmp
@@ -72,9 +72,9 @@ export default function EmployeesTable(props) {
     if (numA === numB) {
       var charA = a.emp_code.replace(/\d+/g, "");
       var charB = b.emp_code.replace(/\d+/g, "");
-      return charB.localeCompare(charA); 
+      return charB.localeCompare(charA);
     } else {
-      return numB - numA; 
+      return numB - numA;
     }
   }
 
@@ -82,6 +82,7 @@ export default function EmployeesTable(props) {
   useEffect(() => {
     if (empData.length > 0) {
       empData.sort(customSort);
+      console.log("activeTabValue", activeTabValue)
       const finalResult = empData.filter((emp) => emp.emp_status === activeTabValue)
       setSortedData(finalResult);
       const currentEmp = empData.filter((emp) => emp.emp_status === 1)
@@ -90,13 +91,13 @@ export default function EmployeesTable(props) {
   }, [empData])
 
 
-  useEffect(()=>{
+  useEffect(() => {
     empData.sort(customSort);
     const finalResult = empData.filter((emp) => emp.emp_status === activeTabValue)
     setSortedData(finalResult);
-  },[activeTabValue])
+  }, [activeTabValue])
 
- 
+
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -147,18 +148,35 @@ export default function EmployeesTable(props) {
   useEffect(() => {
     if (empProfileData) {
       if (emp_Code) {
+        console.log("active", activeTabValue)
         if (empProfileData.emp_status !== 0) {
-          dispatch(deleteEmployee(emp_Code, setShowLoader, navigate, setAnchorEl));
+          dispatch(deleteEmployeeByStatus(emp_Code, setShowLoader, navigate, setAnchorEl));
+
+
         }
         else {
+          dispatch(deleteEmployee(emp_Code, setShowLoader, navigate, setAnchorEl))
           setShowLoader(false);
-          toast("The employee status is already set to 0")
+          // toast("The employee status is already set to 0")
           handleClose();
+          // dispatch(getEmployees(setLoading, navigate))
         }
       }
     }
   }, [empProfileData])
 
+  useEffect(() => {
+    console.log("deleteEmpData", deleteEmpData)
+    if (deleteEmpData?.acknowledged === true) {
+      dispatch(getEmployees(setLoading, navigate))
+    }
+  }, [deleteEmpData])
+  useEffect(() => {
+    console.log("deleteEmpStatus", deleteEmpStatus)
+    if (deleteEmpStatus?.status === 200) {
+      dispatch(getEmployees(setLoading, navigate))
+    }
+  }, [deleteEmpStatus])
 
   return (
 

@@ -100,12 +100,7 @@ export default function EmployeeIntroEditForm(props) {
                 props.setIsEditEmpIntroOpen(!props.isEditEmpIntroOpen)
             }
 
-            /*  if (empProfileDataUpdated.acknowledged !== undefined) {
-                 if (empProfileDataUpdated.acknowledged) {
-                     toast("Data Updated Successfully");
-                     props.setIsEditEmpIntroOpen(!props.isEditEmpIntroOpen)
-                 }
-             } */
+           
             else {
                 props.setIsEditEmpIntroOpen(!props.isEditEmpIntroOpen)
             }
@@ -142,31 +137,23 @@ export default function EmployeeIntroEditForm(props) {
 
                         <ImageUploading
                             name="emp_image_name"
-                            // value={id ? isEditInputValues.emp_image_name : imagePath }
-                            // value={imagePath}
                             onChange={hanldeImages}
-                            //    onChange={handleProfileValues}
                             maxNumber={maxNumber}
                             dataURLKey="data_url"
                         >
                             {({
-                                //  imageList,
                                 onImageUpload,
                                 onImageUpdate,
                                 dragProps
                             }) => (
 
                                 <Box className="upload__image-wrapper">
-                                    {/* {imageList.map((image, index) => ( */}
 
                                     <Box  /* key={index} */ className="image-item" >
                                         <Avatar sx={styles.empName} src={isImgUrl ? imagePath : isEditInputValues.emp_image_name}  >
-                                            {/* {props.empProfileData?.emp_first_name.charAt(0)}{props.empProfileData?.emp_last_name.charAt(0)} */}
                                         </Avatar>
                                     </Box>
-                                    {/* ))}  */}
                                     <Box sx={styles.editProfileImage}>
-                                        {/* onClick={imagePath ? onImageUpload : onImageUpdate } */}
                                         <Button onClick={isEditInputValues?.emp_image_name ? onImageUpdate : onImageUpload}  {...dragProps} sx={styles.editProfileButton} startIcon={<FileUploadOutlinedIcon />}>Upload</Button>
                                     </Box>
                                 </Box>
@@ -211,7 +198,6 @@ export default function EmployeeIntroEditForm(props) {
                     <Box sx={styles.infoList}>
                         <Typography variant='h2' className="title">skills</Typography>
                         <Box sx={styles.userSkils}>
-                            {/* <Grid container rowSpacing={2} columnSpacing={{ xs: 1 }}> */}
                             <FormControl sx={{ width: "100%" }} >
                                 <Select sx={inputStyles.formInput}
                                     labelId="demo-multiple-chip-label"
@@ -222,8 +208,6 @@ export default function EmployeeIntroEditForm(props) {
                                     name="emp_skills"
                                     value={isEditInputValues?.emp_skills}
                                     onChange={handleEmployeeIntroChangeValues}
-                                    //    value={selectSkills}
-                                    //  onChange={handleEditSkillValues}
                                     renderValue={(selected) => (
                                         <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
                                             {selected.length === 0 ? <Typography sx={inputStyles.selectPlaceholder}>Select Skill</Typography> :
@@ -249,19 +233,6 @@ export default function EmployeeIntroEditForm(props) {
                                     ))}
                                 </Select>
                             </FormControl>
-
-                            {/*} <TextField type="text" sx={styles.formInput} select
-                            placeholder="select matital status"
-                            value={selectSkills}
-                            onChange={setSelectSkills}
-                        >
-                            {ListOfSkill.map((option) => (
-                                <MenuItem key={option} value={option.skill}>
-                                    {option.skill}
-                                </MenuItem>
-                            ))}
-                        </TextField> */}
-                            {/* </Grid> */}
 
                         </Box>
 

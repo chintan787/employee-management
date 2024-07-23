@@ -17,23 +17,10 @@ import { inputStyles } from "../FormInput.style";
 import GetAppIcon from "@mui/icons-material/GetApp";
 import PreviewIcon from '@mui/icons-material/Preview';
 import SendIcon from '@mui/icons-material/Send';
-import { PDFExport } from "@progress/kendo-react-pdf";
-import { drawDOM, exportPDF } from "@progress/kendo-drawing";
 import "./styles.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import {
-  Editor,
-  EditorTools,
-  EditorUtils,
-  ProseMirror,
-  EditorMountEvent,
-} from "@progress/kendo-react-editor";
-import ReactHtmlParser from "react-html-parser";
-import EditIcon from "./EditIcon";
-import ImageUploading from "react-images-uploading";
-import { ConstructionOutlined, LocalConvenienceStoreOutlined } from "@mui/icons-material";
-import { zhCN } from "date-fns/locale";
+
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import Alert from '@mui/material/Alert';
@@ -73,7 +60,6 @@ export default function EmployeeSalarySlip() {
     paidLeaves: 0,
     otherEarnings: 0,
     security_hold :0
-    // gross_salary: 0,
   });
 
   //email form
@@ -291,7 +277,6 @@ export default function EmployeeSalarySlip() {
                       setShowEmailLoader={setShowEmailLoader} setShowMessageBox={setShowMessageBox} downloadPdf={downloadPdf} setDownloadPdf={setDownloadPdf} sendEmail={sendEmail} setSendEmail={setSendEmail} emailData={emailData} address={address}  enableSecurityHold={enableSecurityHold} />
                   </>
                   : ''}
-                {/* </Grow> */}
               </Grid>
             </Grid>
           </>

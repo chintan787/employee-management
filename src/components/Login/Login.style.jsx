@@ -1,7 +1,8 @@
 /* export const styles = (theme) => ({ */
 export const styles = {
     leftContent: {
-        backgroundColor: "primary.dark",
+        // backgroundColor: "primary.dark",
+        background:'#000',
         minHeight: "100vh",
         marginTop: "0",
         padding: {
@@ -29,6 +30,9 @@ export const styles = {
         "& .logo-clever": {
             marginLeft: 2,
         },
+        "& .sidenav-logo":{
+            maxHeight:80
+        }
     },
     textContent: {
         padding: "60px 0",
@@ -36,6 +40,7 @@ export const styles = {
         margin: "0 auto",
     },
     introHeading: {
+        
         color: "#fff",
         fontSize:
         {
@@ -50,6 +55,11 @@ export const styles = {
         fontWeight: "700",
         fontStyle: "normal",
         marginBottom: "30px",
+        "& .highlight": {
+            background: 'linear-gradient(90deg, #FF2449 7.33%, #FE5E00 91.92%)',
+            '-webkit-background-clip': 'text',
+            '-webkit-text-fill-color': 'transparent'
+        }
     },
     introSubheading: {
         color: "#fff",
@@ -225,7 +235,6 @@ export const styles = {
                 },
                 "&:focus": {
                     outline: "#E1E8FF",
-                    // borderColor: "#E1E8FF"
                 }
             }
 
@@ -233,90 +242,7 @@ export const styles = {
         }
     },
 
-    //form Input
-    /*  formInput: {
-         display: "block",
-         marginTop: 1,
-        
-         "& .MuiOutlinedInput-root": {
-             minWidth:"100%",
-           
-             fontSize: "15px",
-             lineHeight: "15px",
-             fontWeight: "500",
-             color: "secondary.dark",
-            borderRadius: "6px",
-         },
-         "& fieldset": {
-             borderColor: "transparent",
-             boxShadow: "0px 0px 1px 0px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 6%), 0px 0px 2px 0px rgb(0 0 0 / 6%)",
- 
-         },
- 
-         "& input": {
-             fontFamily: "'Inter', sans-serif",
-               padding:  {
-                 xs: "12px",
-                 sm: "14px",
-                
-             }, 
-     
-             width: "-webkit-fill-available",
-             color: "secondary.dark",
-             background: "#fff",
-             borderRadius: "6px",
-             
-              "&::-webkit-input-placeholder":{
-                 fontSize: "15px",
-                 lineHeight: "15px",
-                 fontWeight: "500",
-                 color: "grey.main",
-                 overflow: "visible",
-                  opacity:"1",
-             } 
- 
-         },
-     },
- 
-     textfieldPassword: {
-         display: "block",
-         margin: "8px 0",
-         "& .MuiOutlinedInput-root": {
-             minWidth:"100%",
-       
-             fontSize: "15px",
-             lineHeight: "15px",
-             fontWeight: "500",
-             color: "secondary.dark",
-         },
-         "& fieldset": {
-             borderColor: "transparent",
-             boxShadow: "0px 0px 1px 0px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 6%), 0px 0px 2px 0px rgb(0 0 0 / 6%)",
- 
-         },
-         "& input": {
-             fontFamily: "'Inter', sans-serif",
-                 padding: {
-                 xs: "12px",
-                 sm: "14px",
-             },  
-           
-             width: "-webkit-fill-available",
-             color: "secondary.dark",
-             background: "#fff",
-             borderRadius: "6px",
-            
-             "&::-webkit-input-placeholder":{
-                 fontSize: "15px",
-                 lineHeight: "15px",
-                 fontWeight: "500",
-                 color: "grey.main",
-                 overflow: "visible",
-                  opacity:"1",
-             }
-         },
-     },
-  */
+   
     formButton: {
         display: "block",
         fontSize: "14px",
@@ -337,9 +263,8 @@ export const styles = {
             backgroundColor:"primary.dark",
         },
         "&:hover": {
-            backgroundColor: "#4C6FFF",
-            // backgroundColor: "pimary.dark",
-            borderColor:"#4C6FFF",
+            backgroundColor: "#FF3534",
+            borderColor:"#FF3534",
             boxShadow: "0px 2px 4px -1px rgb(0 0 0 / 20%), 0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%)"
         },
         "& .MuiCircularProgress-root":{
@@ -422,20 +347,14 @@ export const styles = {
             }
         },
         "& span": {
-            /*  color: "#748ffd" */
             color: "primary.dark"
         }
     },
 
     formCondition: {
         display: "flex",
-        /* alignItems: {
-            xs: "flex-end",
-            xl: "flex-start",
-        }, */
-        /*  margin: "30px 0", */
+      
         "& span": {
-            /* display: "block", */
             height: "20px",
             color: "#c9ced6",
             paddingLeft: 0,
@@ -449,7 +368,6 @@ export const styles = {
             },
         },
         "& p": {
-            /* alignSelf:"flex-start", */
             fontSize: "12px",
             lineHeight: "20px",
             fontWeight: "400",
@@ -492,14 +410,14 @@ export const styles = {
         display: {
             xs: "block",
             md: "flex",
-        },/* "flex", */
+        },
         width: "100%",
     },
     firstName: {
         width: {
             xs: "100%",
             md: "48%",
-        },/* "48%", */
+        },
         paddingRight: {
             xs: "0",
             md: "10px"
@@ -513,7 +431,7 @@ export const styles = {
         paddingLeft: {
             xs: "0",
             md: "10px"
-        },/* "10px", */
+        },
 
     }
 }

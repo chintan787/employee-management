@@ -51,10 +51,6 @@ export const getOPT = (userEmail,setOpenAlert) => {
         
         axios.post(`${BASE_URL}/user/forgot_password`, userEmail)
             .then((response) => {
-
-               /*  if (response.data.status === 401) {
-                    toast(response.data.message);
-                }  */ 
                 if(response.data.status === 200)
                 {
                     setOpenAlert(true);
@@ -81,9 +77,6 @@ export const confirmOTP = (userOTP,setOpenAlert) => {
         axios.post(`${BASE_URL}/user/otp_confirmation`, userOTP)
             .then((response) => {
 
-                /* if (response.data.status === 401) {
-                    toast(response.data.message);
-                } */    
                 if(response.data.status === 200){
                      setOpenAlert(true)
                 }

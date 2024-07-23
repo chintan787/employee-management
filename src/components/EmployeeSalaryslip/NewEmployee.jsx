@@ -140,8 +140,6 @@ export default function NewEmployee() {
 
               {downloadbtnClick ? (
                 <Box
-                  // style={{ maxWidth: "300px" }}
-                  // className="pdf-signature-image"
                 >
                   {imageWidth === undefined
                     ? ReactHtmlParser(signatureContent)

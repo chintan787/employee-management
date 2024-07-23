@@ -4,10 +4,12 @@ const theme = createTheme({
   palette: {
     primary: {
      
-      main: '#E1E8FF', //light blue background badge
-      dark: '#4C6FFF', // button color
+      // main: '#E1E8FF', //light blue background badge
+      // dark: '#4C6FFF', // button color
       // dark:'#ff455c',
-
+      main:'#FF3534',
+      dark:'#FF3534'
+//dark red optionl #FF2449
     },
     secondary: {
       light: '#A0AEC0', //list icon

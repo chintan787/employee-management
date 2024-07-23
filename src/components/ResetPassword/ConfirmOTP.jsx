@@ -25,7 +25,6 @@ import OTPInput from "otp-input-react";
 
 export default function ConfirmOTP(props) {
 
-    // const [isOTP, setIsOTP] = useState({ "OTP": "" })
     const [confirmButtonClick, setConfirmButtonClick] = useState(false);
     const [openAlert, setOpenAlert] = useState(false);
     const [userOTP, setUserOTP] = useState({ "OTP": "" });
@@ -34,9 +33,7 @@ export default function ConfirmOTP(props) {
 
     const { register, formState: { errors }, handleSubmit, watch } = useForm();
     const dispatch = useDispatch()
-   /*  const handleOTP = (event) => {
-        setOTP()
-    } */
+ 
 
     const confirmUserOPT = useSelector(
         (state) => state.ConfirmOTPReducer?.confirmOTP
@@ -77,22 +74,9 @@ export default function ConfirmOTP(props) {
                     <OTPInput className="input-code" value={OTP} name="OTP" onChange={setOTP} autoFocus OTPLength={6} otpType="number" disabled={false} />
 
                     {errors.OTP ? <Alert severity="error" >{errors.OTP?.message}</Alert> : ""}
-                    {/*   <TextField type="number" sx={inputStyles.formInput} name="OTP" style={{ marginBottom: errors.OTP ? "8px" : "30px" }} className="form-textfield-email" placeholder='Enter OTP' variant='outlined'
-                             {...register("OTP", {
-                                required: "OTP is required",
-                                 pattern: {
-                                                        value: /^\d{1}$/,
-                                                        message: 'Please Enter valid code'
-                                                    }
-                            })}  onChange={handleOTP} />
-                        {errors.OTP ? <Alert severity="error" >{errors.OTP?.message}</Alert> : ""}
- */}
-
+                    
                     <Button type="submit" sx={styles.formButton} variant='contained' /* style={{ marginBottom: openAlert ? "8px" : "30px" }} */> Confirm OTP </Button>
-                    {/* {openAlert ?
-                            <Alert variant="filled" severity="success" >OTP is send to your Email-id</Alert>
-                            : ""}  */}
-
+                    
                 </form>
             </Box>
         </>

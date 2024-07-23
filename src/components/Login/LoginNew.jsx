@@ -22,10 +22,7 @@ import { useCookies } from "react-cookie";
 import LoadingButton from '@mui/lab/LoadingButton';
 import SocialLogin from './SocialLogin';
 import SocialFBLogin from './SocialFBLogin';
-// import LoginWithGoogle from './LoginWithGoogle';
-// import LogoutWithGoogle from './LogoutWithGoogle';
-// import { gapi } from 'gapi-script';
-// const clientId= "714934587669-1f9p365fg4m1p5jsr5okt94otlqiop11.apps.googleusercontent.com";
+
 
 
 
@@ -118,7 +115,6 @@ export default function LoginNew() {
             <Typography><Link className='forgot-password' to='/reset-password'>Forgot your password?</Link></Typography>
 
 
-            {/* <Button type="submit" sx={styles.formButton} variant='contained' disabled>Sign in</Button> */}
             <LoadingButton
               type="submit"
               sx={styles.formButton}
@@ -129,9 +125,7 @@ export default function LoginNew() {
               disabled={loading ? true : false}
             >
               Sign in
-              {/* {!loading ? "Sign in" : ""}   */}
             </LoadingButton>
-            {/*           <Button type="submit" sx={styles.formButton}> <Typography  variant="button">Sign in</Typography></Button> */}
           </form>
         </Box>
 
@@ -146,20 +140,8 @@ export default function LoginNew() {
 
         <SocialLogin/>
         <SocialFBLogin/>
-        
 
-          {/* <Box className='card'><Link to='/' ><img className='social-icons' src='/search.png' alt='google' />
-          </Link></Box> */}
-          {/* <Box className='card'><Link to='/' ><img className='social-icons' src='/path4.png' alt='apple' /></Link></Box> */}
-          {/* <Box className='card'><Link to='/' ><img className='social-icons' src='/fb.png' alt='facebook' /> */}
-            {/* <FacebookLogin
-              appId="453546689948244"
-              // autoLoad={true}
-              fields="name,email,picture"
-              scope="public_profile,user_friends"
-              onClick={componentClicked}
-              callback={responseFacebook} /> */}
-          {/* </Link></Box> */}
+         
         </Box>
       </Box>
 
@@ -178,10 +160,7 @@ export default function LoginNew() {
 
     </Grid>
 
-{/* <div>
-<LoginWithGoogle />
-          <LogoutWithGoogle />
-</div> */}
+
 </>
   )
 }

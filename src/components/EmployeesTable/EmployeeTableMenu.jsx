@@ -4,7 +4,6 @@ import {MenuItem, Menu} from '@mui/material';
 
 export default function EmployeeTableMenu() {
    
-   /*  const open = Boolean(anchorEl); */
     const ITEM_HEIGHT = 48;
     const options = [
         'Edit',
@@ -27,11 +26,10 @@ export default function EmployeeTableMenu() {
     <CustomMenu>
         
         {options.map((option) => (
-        <MenuItem sx={styles.menuItem} key={option}  /* selected={option} */  value={option}  /* onClick={(e) => {handleValues(e)}} */ >
+        <MenuItem sx={styles.menuItem} key={option}   value={option}   >
           {option}
         </MenuItem>
       ))}
-      {/*  </Menu> */}
     </CustomMenu>
   )
 }

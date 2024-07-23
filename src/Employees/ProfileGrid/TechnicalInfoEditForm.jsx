@@ -38,7 +38,6 @@ export default function TechnicalInfoEditForm(props) {
     const role = userAsObjectAgain?.user_role
 
     useEffect(()=>{
-        // props.empProfileData ? props.empProfileData.emp_next_increment: "" 
         if( props.empProfileData?.emp_next_increment !== null && props.empProfileData?.emp_next_increment !== "")
         {
             const temp = props.empProfileData?.emp_next_increment.split('-');
@@ -92,12 +91,7 @@ export default function TechnicalInfoEditForm(props) {
 
                 props.setIsEditTechnicalInfoOpen(!props.isEditTechnicalInfoOpen)
             }
-            /* if(empProfileDataUpdated.acknowledged !== undefined){
-                if(empProfileDataUpdated.acknowledged){
-                toast("Data Updated Successfully");
-                props.setIsEditTechnicalInfoOpen(!props.isEditTechnicalInfoOpen)
-                }
-            } */
+            
             else {
                 props.setIsEditTechnicalInfoOpen(!props.isEditTechnicalInfoOpen)
             }
@@ -133,10 +127,7 @@ export default function TechnicalInfoEditForm(props) {
                         <Typography className="title">Date of Joining</Typography>
                         <TextField type="date" sx={inputStyles.formInput} placeholder="select date of joining" name="emp_joining_date" value={isEditInputValues?.emp_joining_date} onChange={handleUpdateTechnicalInfo} />
                     </Grid>
-                    {/* <Grid item xs={6} sx={styles.infoList}>
-                        <Typography className="title">Total Experience</Typography>
-                        <TextField type="number" sx={inputStyles.formInput} placeholder="enter experience" name="emp_total_experience" value={isEditInputValues.emp_total_experience ? isEditInputValues.emp_total_experience.replace(/[^0-9]/g, '') : ""} onChange={handleUpdateTechnicalInfo} />
-                    </Grid> */}
+                   
                     {role === 1 &&
                         (
                             <>
@@ -151,8 +142,7 @@ export default function TechnicalInfoEditForm(props) {
                                 <Grid item xs={6} sx={styles.infoList}>
                                     <Typography className="title">Status</Typography>
                                     <TextField type="number" sx={inputStyles.formInput}  placeholder="enter status" name="emp_status" value={isEditInputValues?.emp_status } onChange={handleUpdateTechnicalInfo} />
-                                    {/* inputProps={{   maxLength: 0,}} */}
-                                    {/* .replace(/[^0-1]/g, '') */}
+                                   
                                 </Grid>
                             </>
                         )}

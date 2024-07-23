@@ -126,7 +126,6 @@ export default function EmployeeLeaves(props) {
                           MenuProps={MenuProps}
                           inputProps={{ 'aria-label': 'Without label' }}
                         >
-                          {/* <MenuItem value="">single </MenuItem> */}
                           {leaveTypes.map((option) => (
                             <MenuItem key={option} value={option}>
                               {option}
@@ -169,7 +168,6 @@ export default function EmployeeLeaves(props) {
                           MenuProps={MenuProps}
                           inputProps={{ 'aria-label': 'Without label' }}
                         >
-                          {/* <MenuItem value="">single </MenuItem> */}
                           {sessions.map((option) => (
                             <MenuItem key={option} value={option}>
                               {option}
@@ -211,7 +209,7 @@ export default function EmployeeLeaves(props) {
 
           <Grid item xs={12} md={6} sx={stylesEmpLeaves.holidayList} >
 
-            <HolidayList /*  sx={stylesEmpLeaves.holidaySection} *//>
+            <HolidayList />
 
           </Grid>
 

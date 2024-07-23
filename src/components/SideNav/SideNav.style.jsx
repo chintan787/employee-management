@@ -37,10 +37,12 @@ export const styles = {
         display: "flex",
         alignItems: "center",
         padding: "30px 24px 20px",
-        /*  padding:"30px 24px", */
         "& .logo-clever": {
             marginLeft: "12px",
         },
+        "& .sidenav-logo":{
+            maxHeight: 40
+        }
     },
     listItems: {
         padding: "8px 24px",

@@ -197,11 +197,9 @@ export const styles = {
         color: "info.dark",
         borderColor: "#dfe0e5",
         "&:hover": {
-            // background: "#fff",
-            // borderColor: "primary.dark",
             color:"#fff",
-            backgroundColor: "#4C6FFF",
-            borderColor:"#4C6FFF",
+            backgroundColor: "primary.dark",
+            borderColor:"primary.dark",
             boxShadow: "0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12)"
         }
     },

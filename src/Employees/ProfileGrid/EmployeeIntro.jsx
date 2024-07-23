@@ -29,15 +29,12 @@ export default function EmployeeIntro(props) {
                 <Typography variant='h2' sx={styles.empIntroTitle}>skills</Typography>
                 <Box sx={styles.userSkils}>
                     <Grid container rowSpacing={2} columnSpacing={{ xs: 1}}>
-                    {/*  {skills.lenght === 0 ?  <Grid item sx={styles.userSkilList} key={skills.name}>
-                                <Typography>{skills.name}</Typography>
-                            </Grid> :"" }  */}
+                    
                           {skills && skills?.length > 0 ?  skills.map(name => (
                             <Grid item sx={styles.userSkilList} key={name}>
                                 <Typography>{name}</Typography>
                             </Grid> 
                          ))  : <Typography>{skills}</Typography>} 
-  {/* <Typography>{skills}</Typography>  */}
 
 
                     </Grid>

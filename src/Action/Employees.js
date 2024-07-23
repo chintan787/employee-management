@@ -14,9 +14,7 @@ const BASE_URL = process.env.REACT_APP_BASE_URL;
 let userAsObjectAgain;
 const stringifiedUser = localStorage.getItem('user');
      userAsObjectAgain = JSON.parse(stringifiedUser);
-// const header = {
-//   Authorization: `Bearer ${userAsObjectAgain?.access_token}`
-// }
+
 const responseheader = {
   'Access-Control-Allow-Origin': 'http://localhost:3000',
   'Access-Control-Allow-Credentials': 'true',

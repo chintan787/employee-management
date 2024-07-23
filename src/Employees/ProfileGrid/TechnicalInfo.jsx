@@ -49,7 +49,6 @@ export default function TechnicalInfo(props) {
                     <Typography className="title">Years in Company</Typography>
                     <Typography className="info">
                         {props.empProfileData?.emp_status === 1 ? props?.empProfileData?.emp_joining_date ? roundedNumber : '-' : '-'}
-                        {/* {experience.length > 0 ? experience.includes("year") ? experience : experience + " year" : "-"} */}
                         </Typography>
                 </Grid>
                 {role === 1 && (

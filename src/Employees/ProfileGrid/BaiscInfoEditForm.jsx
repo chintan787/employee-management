@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { updateEmployeeProfile , getEmployee } from '../../Action/Employees'
+import { updateEmployeeProfile, getEmployee } from '../../Action/Employees'
 import { useSelector, useDispatch } from 'react-redux';
 import { styles } from './ProfileGrid.style';
 import { inputStyles } from '../../components/FormInput.style'
 import {
-    Box,    
+    Box,
     Grid,
     Typography,
     TextField,
@@ -29,14 +29,9 @@ import Alert from '@mui/material/Alert';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import { useNavigate } from "react-router-dom";
 
-/* import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
- */
 
 export default function BaiscInfoEditForm(props) {
 
-    // const [editDOB, setEditDOB] = useState(props.empProfileData.emp_birthdate);
     const [updateEmp, setUpdateEmp] = useState()
     const [saveButtonclick, setSaveButtonClick] = useState(false);
     const [isEditInputValues, setIsEditInputValues] = useState(props.empProfileData ? props.empProfileData : "")
@@ -57,7 +52,7 @@ export default function BaiscInfoEditForm(props) {
         },
     };
     const dispatch = useDispatch()
-    const statusData = [ "single","married", "widowed", "divorced"]
+    const statusData = ["single", "married", "widowed", "divorced"]
     const data = [
         // { city: "Philps", state: "New york" },
         // { city: "Square", state: "Chicago" },
@@ -70,7 +65,7 @@ export default function BaiscInfoEditForm(props) {
         // { city: "Jaipur", state: "Rajasthan" },
 
     ]
-    const cityData = ["Anand","Ahmedabad","Bhavnagar","Gandhinagar","Junagadh","Rajkot","Surat","Una","Vadodara",]
+    const cityData = ["Anand", "Ahmedabad", "Bhavnagar", "Gandhinagar", "Junagadh", "Rajkot", "Surat", "Una", "Vadodara",]
 
     const statusDatalowerCase = statusData.map(name => name.toLowerCase());
     const dataLowerCase = JSON.stringify(data, function (key, value) {
@@ -83,7 +78,7 @@ export default function BaiscInfoEditForm(props) {
             return value;
         }
     });
-    
+
     function handleChangeBasicInfoValues(event) {
         const { value, name } = event.target
         setIsEditInputValues({ ...isEditInputValues, [name]: value })
@@ -99,22 +94,22 @@ export default function BaiscInfoEditForm(props) {
     );
     useEffect(() => {
         if (saveButtonclick) {
-            dispatch(updateEmployeeProfile(id, updateEmp,setLoading,navigate))
+            dispatch(updateEmployeeProfile(id, updateEmp, setLoading, navigate))
         }
     }, [saveButtonclick])
 
     useEffect(() => {
         if (saveButtonclick) {
             if (Object.keys(empProfileDataUpdated).length !== 0) {
-                dispatch(getEmployee(id, setLoading,navigate))
-                setTimeout(()=>{
+                dispatch(getEmployee(id, setLoading, navigate))
+                setTimeout(() => {
                     toast("Data Updated Successfully");
-                },[1000])
+                }, [1000])
 
                 props.setIsEditBasicInfoOpen(!props.isEditBasicInfoOpen)
-                
+
             }
-           
+
             else {
                 props.setIsEditBasicInfoOpen(!props.isEditBasicInfoOpen)
             }
@@ -189,21 +184,7 @@ export default function BaiscInfoEditForm(props) {
 
                         <Grid item xs={6} sx={styles.infoList}>
                             <Typography className="title">State</Typography>
-                            {/* <TextField type="text" sx={inputStyles.formInput} /> */}
 
-                            {/*  <TextField sx={inputStyles.formSelectInput}
-                                select
-                                // label="select state"
-                                name="emp_state"
-                                value={isEditInputValues?.emp_state.toLowerCase()}
-                                onChange={handleChangeBasicInfoValues}
-                            >
-                                {data.map((option, index) => (
-                                    <MenuItem key={index} value={option.state.toLowerCase()}>
-                                        {option.state.toLowerCase()}
-                                    </MenuItem>
-                                ))}
-                            </TextField> */}
                             <Select
                                 sx={inputStyles.formSelectInput}
                                 displayEmpty
@@ -231,55 +212,18 @@ export default function BaiscInfoEditForm(props) {
                                 ))}
                             </Select>
 
-
-
                         </Grid>
 
-                        <Grid item xs={6}  sx={styles.infoList}>
-                                                <Typography className="title">City</Typography>
-                                              
-                                                <Select
-                                                    sx={inputStyles.formSelectInput}
-                                                    displayEmpty
-                                                    name="emp_city"
-                                                    // value={isEditInputValues.emp_city ? isEditInputValues.emp_city : ""}
-                                                    value={isEditInputValues?.emp_city.toLowerCase()}
-                                                    // onChange={handleProfileValues}
-                                                    onChange={handleChangeBasicInfoValues}
-                                                    input={<OutlinedInput />}
-                                                    renderValue={(selected) => {
-                                                        if (selected.length === 0) {
-                                                            return <Typography sx={inputStyles.selectPlaceholder}>Select City</Typography>;
-                                                        }
-
-                                                        return selected;
-                                                    }}
-                                                    MenuProps={MenuProps}
-                                                    inputProps={{ 'aria-label': 'Without label' }}
-                                                >
-                                                    <MenuItem disabled value="">
-                                                        <em>Select City</em>
-                                                    </MenuItem>
-
-                                                   { isEditInputValues?.emp_state !== "" ?
-                                                   cityData.map((option, index) => (
-                                                        <MenuItem key={index} value={option}>
-                                                            {option}
-                                                        </MenuItem>
-                                                    ))
-                                                    : ""
-                                                    }
-                                                </Select>
-                                            </Grid>
-
-                        {/* <Grid item xs={6} sx={styles.infoList}>
+                        <Grid item xs={6} sx={styles.infoList}>
                             <Typography className="title">City</Typography>
-                           
+
                             <Select
                                 sx={inputStyles.formSelectInput}
                                 displayEmpty
                                 name="emp_city"
+                                // value={isEditInputValues.emp_city ? isEditInputValues.emp_city : ""}
                                 value={isEditInputValues?.emp_city.toLowerCase()}
+                                // onChange={handleProfileValues}
                                 onChange={handleChangeBasicInfoValues}
                                 input={<OutlinedInput />}
                                 renderValue={(selected) => {
@@ -295,29 +239,22 @@ export default function BaiscInfoEditForm(props) {
                                 <MenuItem disabled value="">
                                     <em>Select City</em>
                                 </MenuItem>
-                                {data.filter(function (item) {
-                                    return item.state === isEditInputValues.emp_state;
-                                }).map((option, index) => (
-                                    <MenuItem key={index} value={option.city}>
-                                        {option.city}
-                                    </MenuItem>
-                                ))}
-                            </Select>
 
-                        </Grid> */}
+                                {isEditInputValues?.emp_state !== "" ?
+                                    cityData.map((option, index) => (
+                                        <MenuItem key={index} value={option}>
+                                            {option}
+                                        </MenuItem>
+                                    ))
+                                    : ""
+                                }
+                            </Select>
+                        </Grid>
+
+
 
                         <Grid item xs={6} sx={styles.infoList}>
                             <Typography className="title">Birth Date</Typography>
-                            {/*  <LocalizationProvider dateAdapter={AdapterDateFns}>
-                        <DatePicker
-                            label="Basic example"
-                            value={selectDOB}
-                            onChange={(newValue) => {
-                                setSelectDOB(newValue);
-                            }}
-                            renderInput={(params) => <TextField {...params} />}
-                        />
-                    </LocalizationProvider> */}
                             <TextField type="date" sx={inputStyles.formInput} placeholder="select birth date" name="emp_birthdate" value={isEditInputValues?.emp_birthdate} onChange={handleChangeBasicInfoValues} />
 
                         </Grid>
@@ -340,7 +277,7 @@ export default function BaiscInfoEditForm(props) {
 
                         <Grid item xs={6} sx={styles.infoList}>
                             <Typography className="title">Marital status</Typography>
-                              <TextField type="text" sx={inputStyles.formSelectInput}
+                            <TextField type="text" sx={inputStyles.formSelectInput}
                                 select
                                 name="emp_marital_status"
                                 value={isEditInputValues.emp_marital_status ? isEditInputValues.emp_marital_status.toLowerCase() : ""}
@@ -351,36 +288,13 @@ export default function BaiscInfoEditForm(props) {
                                         {option}
                                     </MenuItem>
                                 ))}
-                            </TextField> 
+                            </TextField>
 
-                            {/* <Select
-                                sx={inputStyles.formSelectInput}
-                                displayEmpty
-                                name="emp_city"
-                                value={isEditInputValues?.emp_marital_status.toLowerCase()}
-                                onChange={handleChangeBasicInfoValues}
-                                input={<OutlinedInput />}
-                                 renderValue={(selected) => {
-                                    if (selected.length === 0) {
-                                        return <Typography sx={inputStyles.selectPlaceholder}>Select Marital Status</Typography>;
-                                    }
-
-                                    return selected;
-                                }} 
-                                MenuProps={MenuProps}
-                                inputProps={{ 'aria-label': 'Without label' }}
-                            >
-                                 <MenuItem disabled value="">
-                                    <em>Select Marital Status</em>
-                                </MenuItem> 
-                                {statusData.map((option) => (
-                                    <MenuItem key={option} value={option}>
-                                        {option}
-                                    </MenuItem>
-                                ))}
-                            </Select> */}
-
-
+                        </Grid>
+                        <Grid item xs={6} sx={styles.infoList}>
+                            <Typography className="title">PAN Card</Typography>
+                            <TextField type="text" sx={inputStyles.formInput} placeholder="Enter PAN card number" name="emp_pan_card"
+                                value={isEditInputValues?.emp_pan_card} onChange={handleChangeBasicInfoValues} />
                         </Grid>
                         <Grid item xs={6} sx={styles.infoList}>
                             <Typography className="title">Address</Typography>
@@ -395,14 +309,16 @@ export default function BaiscInfoEditForm(props) {
                                 onChange={handleChangeBasicInfoValues}
                             />
                         </Grid>
+
+                        
                     </Grid>
                 </Box>
                 <Stack direction="row" spacing={2} sx={styles.editProfileButtonSection} >
 
                     <Tooltip title="Save" TransitionComponent={Fade} TransitionProps={{ timeout: 600 }}>
-                        <Button type="submit" disabled={loading ? true : false}  style={{color : loading ? "transparent" : "#fff"}} sx={styles.primaryButton} variant="contained" /* onClick={handleupdateEmpIntro} */>
-                        save
-                        {loading ? <CircularProgress size={20} sx={styles.showLoader} /> : ""}
+                        <Button type="submit" disabled={loading ? true : false} style={{ color: loading ? "transparent" : "#fff" }} sx={styles.primaryButton} variant="contained" /* onClick={handleupdateEmpIntro} */>
+                            save
+                            {loading ? <CircularProgress size={20} sx={styles.showLoader} /> : ""}
                         </Button>
                     </Tooltip>
 

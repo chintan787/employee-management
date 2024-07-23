@@ -45,7 +45,6 @@ export default function HolidayList() {
     })
     const [open, setOpen] = useState(false);
     const [okButtonClick, setOkButtonClick] = useState(false);
-    // const [displayEvent, setDisplayEvent] = useState([])
 
     const navigate = useNavigate();
 
@@ -96,7 +95,6 @@ export default function HolidayList() {
         if (okButtonClick) {
             if (annualLeaves.length !== 0) {
                 setOpen(false)
-                // setEvents()
                 setTimeout(() => {
                     toast("Holiday Inserted Successfully");
                 }, [1000])

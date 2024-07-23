@@ -41,7 +41,7 @@ function CustomTable(props) {
         </Stack>
         : ""}
       <CustomCard>
-        <TableContainer /* component={CustomCard} */ component={Paper}>
+        <TableContainer component={Paper}>
           <Table sx={styles.customTable} aria-label="simple table" style={{ tableLayout: props.layout ? { xs: "auto", md: "fixed" } : "auto" }}  >
             {props.subHeading || props.searchedVal ?
               <TableHead >
@@ -77,9 +77,6 @@ function CustomTable(props) {
 
             {props.rowsPerPage ?
               <TableRow>
-
-                {/* <TableCell colSpan={4} sx={styles.showTotalNumOfRowsResult}>Showing 10 items out of 250 results found</TableCell> */}
-
                 <TableCell colSpan={8} sx={styles.paginationCell}>
                   <TablePagination
                     sx={styles.pagination}
@@ -95,7 +92,6 @@ function CustomTable(props) {
                 </TableCell>
               </TableRow>
               : ""}
-
           </Table>
         </TableContainer>
       </CustomCard>

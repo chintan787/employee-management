@@ -11,12 +11,10 @@ import {
     IconButton,
     List,
     ListItem,
-    // ListItemButton,
     ListItemIcon,
     ListItemText,
     Toolbar,
     Typography,
-    // Badge,
     Avatar,
     Button,
     Hidden,
@@ -35,7 +33,6 @@ import ModeEditOutlinedIcon from '@mui/icons-material/ModeEditOutlined';
 export default function SideNav(props) {
 
     const [mobileOpen, setMobileOpen] = useState(false);
-    // const [isActive, setActive] = useState("true");
     const stringifiedUser = localStorage.getItem('user');
     const userAsObjectAgain = JSON.parse(stringifiedUser);
     const role = userAsObjectAgain?.user_role
@@ -52,17 +49,10 @@ export default function SideNav(props) {
             location: "Paris, FR",
             status: "online"
         },
-        /* {
-            image_url: "/profile-img3.png",
-            name: "Marie Claire1",
-            location: "Paris, FR",
-            status: "away"
-        }, */
+       
     ]
 
    
-    /* const stringifiedUser = localStorage.getItem('user');
-    const userAsObjectAgain = JSON.parse(stringifiedUser); */
    
     const handleLogout = () => {
         localStorage.clear();
@@ -76,8 +66,7 @@ export default function SideNav(props) {
 
         <Box sx={styles.sideNav}>
             <Box sx={styles.logoSection} >
-                <Link to="/dashboard"><img className='logo-dashboard' src='/dashboard-md.svg' alt='logo_image' /></Link>
-                <Link to="/dashboard"><img className='logo-clever' src='/clever-md.svg' alt='clever' /></Link>
+                <Link to="/dashboard"><img className='sidenav-logo' src="/stroke-logo.png" alt='logo_image' /> </Link>
             </Box>
 
             <List sx={styles.listSection}>
@@ -99,7 +88,6 @@ export default function SideNav(props) {
                     <ListItem disablePadding sx={styles.listItems}>
                         <ListItemIcon className='list-icon'> {<AssignmentOutlinedIcon />}</ListItemIcon>
                         <ListItemText className='list-title'>Reports</ListItemText>
-                        {/* <Badge badgeContent={4} color="primary" sx={styles.badge}></Badge> */}
                     </ListItem>
                 </NavLink>
                 {role === 1 ?
@@ -126,30 +114,7 @@ export default function SideNav(props) {
 
             <Divider sx={styles.divider} />
 
-            {/*  <Box sx={styles.contactHeadingSection}>
-                <Typography className='contact-heading'>Contacts</Typography>
-                <Badge badgeContent={4} color="primary" sx={styles.badge}></Badge>
-            </Box> */}
-            {/*  <List sx={styles.contactList}>
-
-                 {contactData.map((contact, index) => (
-                    <ListItem key={index} disablePadding sx={{ position: "relative" }}>
-                        <ListItemButton>
-                            <ListItemIcon>
-                                <img className='customer-profile-image' src={contact.image_url !== "" ? contact.image_url : ""} alt="user-profile" />
-                                <Typography className={`customer-status ${contact.status}`}></Typography>
-                                <Typography className={`customer-status ${contact.status}`}> {contact.status !== "" ? contact.status : ""} }</Typography>
-                            </ListItemIcon>
-                            <Box>
-                                <Typography className='customer-name'>{contact.name !== "" ? contact.name : ""}</Typography>
-                                <Typography className='customer-location'>{contact.location !== "" ? contact.location : ""}</Typography>
-
-                            </Box>
-                        </ListItemButton>
-                    </ListItem>
-                ))} 
-            </List> 
- */}
+           
             <List>
                 <ListItem disablePadding sx={styles.listItems}>
                     <ListItemIcon className='list-icon'> {<PersonOutlineOutlinedIcon />}</ListItemIcon>
@@ -221,7 +186,6 @@ export default function SideNav(props) {
                 component="nav"
                 sx={{ width: { lg: drawerWidth }, flexShrink: { lg: 0 }, height: { lg: '100vh' } }}
                 aria-label="mailbox folders">
-                {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
                 <Drawer
                 id="drawer"
                     container={container}
@@ -229,7 +193,7 @@ export default function SideNav(props) {
                     open={mobileOpen}
                     onClose={handleDrawerToggle}
                     ModalProps={{
-                        keepMounted: true, // Better open performance on mobile.
+                        keepMounted: true, 
                     }}
                     sx={{
                         display: { xs: 'block', lg: 'none' },

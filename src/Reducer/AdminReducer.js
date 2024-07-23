@@ -2,11 +2,15 @@ import {
     CREATE_EMPLOYEE,
     DELETE_EMPLOYEE,
     ADD_LEAVE,
-    GET_LEAVES,GENERATE_SALARYSLIP
+    GET_LEAVES,GENERATE_SALARYSLIP,
+    DELETE_BY_STATUS
 } from '../Redux/ActionTypes'
 
 const intialCreateEmployee = {
     createEmp : [],
+}
+const initialDeleteByStatus ={
+    inactive : []
 }
 const initialDeleteEmployee ={
     deleteEmp : []
@@ -38,6 +42,20 @@ export const CreateEmployeeReducer = (state = intialCreateEmployee, action) => {
 
 
 }
+
+export const DeleteEmployeebyStatusReducer = (state = initialDeleteByStatus, action) => {
+    switch (action.type) {
+
+        case DELETE_BY_STATUS:
+            return {
+                inactive: action.payload.data,
+            }
+        default: return state
+    }
+
+
+}
+
 export const DeleteEmployeeReducer = (state = initialDeleteEmployee, action) => {
     switch (action.type) {
 

@@ -89,19 +89,12 @@ export const styles = {
             padding: "4px 5px",
 
         },
-        // "& .MuiTableHead-root .MuiTableCell-root:nth-of-type(even)":{
-        //     fontWeight:'500',
-        //     fontSize: "14px",
-        //     padding:"4px 5px",
-
-        // },
         "& .MuiTableCell-root": {
             borderLeft: "1px solid #000",
             borderTop: '1px solid #000',
             borderBottom: 'none',
             padding: "2px 4px",
             fontSize: "12px",
-            // lineHeight: "12px",
             lineHeight: "20px",
             fontWeight: '500',
             color: "#000",
@@ -113,15 +106,11 @@ export const styles = {
             borderBottom: "1px solid #000",
             fontWeight: '700',
             fontSize: "12px",
-            // padding:"4px 5px",
         }
     },
     wrapper: {
         backgroundColor: "#fff",
-        //  backgroundColor:"#dbe5f1",
         border: "1px solid #000",
-        //  marginTop:"40px",
-        //  marginBottom:"10px",
         margin: "20px 0",
         maxWidth: "670px",
         "& .MuiTypography-root.MuiTypography-body1": {
@@ -143,9 +132,6 @@ export const styles = {
             paddingTop: "2px",
             paddingLeft: "0",
             alignItems: 'center',
-            /* "&:nth-of-type(odd)":{
-                paddingRight:2
-            }, */
         }
     },
     amounttextfields: {
@@ -166,7 +152,6 @@ export const styles = {
         fontWeight: "600",
         backgroundColor: "primary.dark",
         borderRadius: "8px",
-        // color: "#fff",
         padding: "16px",
         textTransform: "capitalize",
         height: "54px",
@@ -187,18 +172,14 @@ export const styles = {
         fontWeight: "600",
         backgroundColor: "primary.dark",
         borderRadius: "8px",
-        // color: "#fff",
-        // padding: "16px",
         textTransform: "capitalize",
         height: "54px",
         alignSelf: "end",
-        // width:'100%'
         marginLeft: '10px'
     },
 
     inputValues: {
         textTransform: "capitalize",
-        // borderBottom:"1px solid #000" , 
         lineHeight: "14px",
         width: {
             xs: "60%",
@@ -207,7 +188,6 @@ export const styles = {
         alignSelf: "end",
         flexGrow: 1,
         "& p": {
-            // lineHeight: "14px",
         },
 
     },
@@ -241,13 +221,11 @@ export const styles = {
         display: "flex"
     },
     amountDetailGrid: {
-        // maxWidth:"80%",
         margin: "0 auto",
         maxWidth: "650px",
         padding: "15px"
     },
     tableHeadingAmount: {
-        // textAlign:'right'
         textAlign: 'right',
         backgroundColor: '#d9d7d7'
 
@@ -270,19 +248,12 @@ export const styles = {
     multilineAddress: {
         border: '1px solid #000',
         marginTop: '5px',
-        // width:'60%',
         width: '80%',
-
-        // textAlign:'center',
         "& .MuiOutlinedInput-root.MuiInputBase-root ": {
             padding: '5px',
-            // textAlign:'center',
-
         },
         "& .MuiOutlinedInput-input": {
-            // textAlign:'center',
             fontSize: "12px",
-
         }
     },
     empData: {
@@ -290,7 +261,6 @@ export const styles = {
         "& .MuiInput-input": {
             padding: '4px',
             width: '100%',
-
         },
     },
     leaveData: {
@@ -303,7 +273,6 @@ export const styles = {
         "& .MuiOutlinedInput-input": {
             padding: '4px',
             width: '100%',
-            // textAlign:'center'
         },
         "& input::-webkit-outer-spin-button": {
             WebkitAppearance: 'none',
@@ -357,17 +326,11 @@ export const styles = {
     boldTableCell: {
         fontWeight: '700 !important',
         fontSize: '12px',
-        //     "& .MuiTableRow-root .MuiTableCell-root MuiTableCell-body":{
-        //     fontWeight:'600',
-
-        //     }
     },
     uploadImage: {
         maxWidth: '28%',
         margin: '0 0 0 auto',
         padding: '10px 0',
-
-        // padding:'10px 20px',
         "& .edit-button": {
             marginBottom: '10px'
         },
@@ -383,23 +346,11 @@ export const styles = {
     tableCells: {
         "& .MuiTableRow-root .MuiTableCell-root:nth-of-type(even)": {
             textAlign: 'right',
-            // padding:'4px'
-
         },
-        // "& .MuiTableRow-root:last-of-type td":{
-        //     backgroundColor:'pink',
-        //     padding:'2px 4px',
-        //     height:'10px',
-        //     lineHeight:'10'
-        // }
         "& .MuiTableRow-root .MuiTableCell-root": {
-            // padding:'2px 2px'
         }
     },
     leavesCount: {
-        // padding:'1px',
-        // textAlign:'left',
-        // margin:'0 !important'
     },
     showLoaderForMail: {
         color: "primary.light",

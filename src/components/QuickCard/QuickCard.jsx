@@ -20,7 +20,6 @@ export default function QuickCard(props) {
                 <CardContent sx={styles.cardContent}>
                     
                     <Box sx={styles.cardImage} className={`template-${props.template}`}>
-                        {/* <img src={props.icon} alt='base' /> */}
                         {props.icon}
                     </Box>
 
@@ -37,24 +36,7 @@ export default function QuickCard(props) {
             </Box>
  
 
-            {/*   <Box sx={styles.cardListSection}>
-        {cardData.map((card, index) => (
-            <Card variant='outlined' className='card' >
-                <CardContent sx={styles.cardContent}>
-                    <Box className='card-image'>
-                    <img src={card.image_url} alt='base' />
-                    </Box>
-                    <Box>
-                    <Typography className='card-heading'>{card.category_name}</Typography>
-                    <Typography className='total-value'>{card.total_result}</Typography>
-                    <Typography className='status-value'>{card.status_value}</Typography>
-                    </Box>
-                    
-                </CardContent>
-            </Card>
-        ))
-        }
-    </Box>  */}
+           
         </>
     )
 }

@@ -53,22 +53,8 @@ export default function CustomMenu(props) {
           },
         }}
       >
-
-        {/* {props.options && props.options.length ? props.options.map(option => ( 
-        <MenuItem sx={styles.menuItem} key={option} selected={option} onClick={handleClose}>
-        {option}
-      </MenuItem>
-      )) : null}  */}
-
-
-        {/*  {options.map((option) => (
-        <MenuItem sx={styles.menuItem} key={option} selected={option === 'Pyxis'} onClick={handleClose}>
-          {option}
-        </MenuItem>
-      ))}  */}
         {props.children}
       </Menu>
-     {/*  </CustomCard> */}
     </div>
   )
 }

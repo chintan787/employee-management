@@ -2,7 +2,6 @@ export const styles = {
 
     
     cards: {
-      /*  padding: "26px 24px 20px", */
         width: "255px",
         "& .MuiCardContent-root": {
             padding: 0,

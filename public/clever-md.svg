@@ -7,28 +7,28 @@
 <path d="M57.0512 17.7401H60.187V9.91819C60.187 8.22907 61.4603 7.03369 63.1841 7.03369C63.7125 7.03369 64.3708 7.12897 64.6393 7.21559V4.33109C64.3535 4.27911 63.8597 4.24447 63.5132 4.24447C61.9887 4.24447 60.7153 5.11068 60.2303 6.65255H60.0917V4.43503H57.0512V17.7401Z" fill="url(#paint5_linear_3095_20085)"/>
 <defs>
 <linearGradient id="paint0_linear_3095_20085" x1="64.6393" y1="0" x2="55.3359" y2="33.4093" gradientUnits="userSpaceOnUse">
-<stop stop-color="#BB65FF"/>
-<stop offset="1" stop-color="#4C6FFF"/>
+<stop stop-color="#FF3534"/>
+<stop offset="1" stop-color="#FF3534"/>
 </linearGradient>
 <linearGradient id="paint1_linear_3095_20085" x1="64.6393" y1="0" x2="55.3359" y2="33.4093" gradientUnits="userSpaceOnUse">
-<stop stop-color="#BB65FF"/>
-<stop offset="1" stop-color="#4C6FFF"/>
+<stop stop-color="#FF3534"/>
+<stop offset="1" stop-color="#FF3534"/>
 </linearGradient>
 <linearGradient id="paint2_linear_3095_20085" x1="64.6393" y1="0" x2="55.3359" y2="33.4093" gradientUnits="userSpaceOnUse">
-<stop stop-color="#BB65FF"/>
-<stop offset="1" stop-color="#4C6FFF"/>
+<stop stop-color="#FF3534"/>
+<stop offset="1" stop-color="#FF3534"/>
 </linearGradient>
 <linearGradient id="paint3_linear_3095_20085" x1="64.6393" y1="0" x2="55.3359" y2="33.4093" gradientUnits="userSpaceOnUse">
-<stop stop-color="#BB65FF"/>
-<stop offset="1" stop-color="#4C6FFF"/>
+<stop stop-color="#FF3534"/>
+<stop offset="1" stop-color="#FF3534"/>
 </linearGradient>
 <linearGradient id="paint4_linear_3095_20085" x1="64.6393" y1="0" x2="55.3359" y2="33.4093" gradientUnits="userSpaceOnUse">
-<stop stop-color="#BB65FF"/>
-<stop offset="1" stop-color="#4C6FFF"/>
+<stop stop-color="#FF3534"/>
+<stop offset="1" stop-color="#FF3534"/>
 </linearGradient>
 <linearGradient id="paint5_linear_3095_20085" x1="64.6393" y1="0" x2="55.3359" y2="33.4093" gradientUnits="userSpaceOnUse">
-<stop stop-color="#BB65FF"/>
-<stop offset="1" stop-color="#4C6FFF"/>
+<stop stop-color="#FF3534"/>
+<stop offset="1" stop-color="#FF3534"/>
 </linearGradient>
 </defs>
 </svg>

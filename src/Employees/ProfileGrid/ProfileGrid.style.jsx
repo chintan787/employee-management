@@ -13,8 +13,7 @@ export const styles = {
     },
     cardContentUserProfile: {
         padding: "24px",
-        // margin: "25px 0",
-        /*  minHeight: "600px", */
+       
         "&:last-child": {
             paddingBottom: "16px"
         }
@@ -30,24 +29,11 @@ export const styles = {
             width: '100px',
             height: '100px'
         },
-
-
-        /*  maxWidth: "100px",
-         
-         maxHeight: "100px", 
-         overflow: "hidden",
-         borderRadius: "50%",
- 
-         "& img": {
-             width: "100%",
-             height: "auto",
- 
-         } */
+       
     },
 
     userIntro: {
         textAlign: "center",
-        // margin: "20px 0"
     },
     userName: {
         color: "primary.dark",
@@ -88,7 +74,6 @@ export const styles = {
         width: "100%"
     },
     userSkilList: {
-        /* flexGrow: "1", */
         textAlign: "center",
         "& p": {
             padding: "10px 15px",
@@ -100,13 +85,11 @@ export const styles = {
             textTransform: "capitalize",
             background: "#f7fafc",
             borderColor: "#EDF2F7",
-            /*   boxShadow: "0px 0px 1px 0px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 6%), 0px 0px 2px 0px rgb(0 0 0 / 6%)" */
         }
     },
     empInfo: {
         width: "100%",
-        /*  marginTop: "20px",
-         marginBottom: "10px" */
+       
     },
 
     editProfileImage: {
@@ -222,22 +205,10 @@ export const styles = {
         "&.Mui-disabled":{
             backgroundColor: "primary.dark",
         }
-        /*  marginRight:"20px",
-         marginTop:"20px" */
+       
     },
 
-    /*  outlinedButton: {
-         fontSize: "14px",
-         lineHeight: "14px",
-         fontWeight: "600",
-         backgroundColor: "primary.dark",
-         borderRadius: "8px",
-         textTransform: "none",
-         color: "#fff",
-         padding: "16px",
-         marginTop: "20px",
-         marginRight: 4
-     }, */
+    
     empInfoHeadingSection: {
         display: "flex",
         alignItems: "center",
@@ -246,8 +217,7 @@ export const styles = {
     empEditButton: {
         marginLeft: "10px",
         padding: "5px",
-        /*  border: " 1px solid #ccc",
-         borderRadius: "6px", */
+        
         "& svg": {
             fontSize: "20px"
         }

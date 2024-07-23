@@ -18,7 +18,6 @@ import CommentIcon from '@mui/icons-material/Comment';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useForm } from "react-hook-form";
-// import Alert from '@mui/material/Alert';
 
 
 
@@ -41,7 +40,6 @@ useEffect(() => {
   if (registerButtonclick) {
           dispatch(userRegister(userData,setLoading))
   }
-  // setSubmitButtonClick(false);
 }, [registerButtonclick])
 
 useEffect(() => {
@@ -93,7 +91,7 @@ useEffect(() => {
 
            
 
-            <Box /* sx={{ width: '100%' }} */ sx={styles.userDetails}>
+            <Box  sx={styles.userDetails}>
               <Grid container rowSpacing={1} columnSpacing={{ xs: 0, sm: 2, md: 3 }}>
                 <Grid item  xs={12}  sm={6}>
                 <label>First Name</label>
@@ -103,9 +101,7 @@ useEffect(() => {
                     message: 'Please Enter valid First Name'
                   }
                 })} onChange={handleRegisterValues} />
-               {/*  <Hidden only={['md', 'lg','xl']}> */}
                  {errors.user_fname ? <Alert severity="error"> {errors.user_fname?.message}</Alert> : ""}
-                 {/* </Hidden> */}
                 </Grid>
 
                 <Grid item  xs={12}  sm={6}>
@@ -116,9 +112,7 @@ useEffect(() => {
                     message: "Please Enter valid Last Name"
                   }
                 })} onChange={handleRegisterValues} />
-                {/* <Hidden only={['md', 'lg','xl']}> */}
                  {errors.user_lname ? <Alert severity="error"> {errors.user_lname?.message}</Alert> : ""}
-                {/*  </Hidden> */}
                 </Grid>
 
               </Grid>
@@ -146,19 +140,6 @@ useEffect(() => {
             />{errors.user_password ? <Alert severity="error"> {errors.user_password?.message}</Alert> : ""}
             <Typography sx={styles.warningMsg}>Must be 8 characters at least</Typography>
 
-            {/* <label>Confirm password</label>
-            <TextField sx={inputStyles.textfieldPassword} name="user_confirmPassword" placeholder='Type your confirm password' type='password' {...register("user_confirmPassword", {
-              required: "Confirm Password is required", validate: (value) => {
-              
-                if (watch('user_password') !== value) {
-                  return "Password and Confirm Password doesn't match";
-                }
-              },
-            }
-
-            )} autoComplete='current-password'
-            onChange={handleRegisterValues}
-            />{errors.user_confirmPassword ? <Alert severity="error"> {errors.user_confirmPassword?.message}</Alert> : ""} */}
 
             <Box sx={styles.formCondition} style={{ margin: errors.checkbox ? "8px 0" : "30px 0" }}>
               <Checkbox {...register("checkbox", { required: "Please check this Box " })} />

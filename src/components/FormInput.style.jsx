@@ -15,7 +15,6 @@ export const inputStyles = {
         },
 
         "& .MuiOutlinedInput-root": {
-            // display: "block ",
              minWidth:"100%",
             fontSize: "15px",
             lineHeight: "15px",
@@ -37,10 +36,6 @@ export const inputStyles = {
             textTransform: "none"
         },
        
-        
-       /*  "& input[name='emp_code']": {
-            textTransform: "uppercase"
-        }, */
         "&.emp-code input":{
             textTransform:"uppercase"
         },
@@ -107,11 +102,9 @@ export const inputStyles = {
         "& .MuiOutlinedInput-input ": {
             lineHeight: "20px",
             "&.Mui-disabled":{
-                // backgroundColor: "rgba(0, 0, 0, 0.12)
                 backgroundColor :"rgb(131 129 129 / 9%)",
             }
         },
-        // MuiSelect-select MuiSelect-outlined MuiOutlinedInput-input
        
 
     },
@@ -120,8 +113,6 @@ export const inputStyles = {
         margin: "8px 0",
         "& .MuiOutlinedInput-root": {
             minWidth:"100%",
-           /*  display: "block ",
-            fontFamily: "'Inter', sans-serif", */
             fontSize: "15px",
             lineHeight: "15px",
             fontWeight: "500",
@@ -138,19 +129,11 @@ export const inputStyles = {
                 xs: "12px",
                 sm: "14px",
             },  
-             /* padding: "14.5px 16px 16.5px 16px",  */
-          /*   padding:"16px 14px", */
             width: "-webkit-fill-available",
             color: "secondary.dark",
             background: "#fff",
             borderRadius: "6px",
-            /* "&::placeholder":{
-                fontSize: "15px",
-                lineHeight: "15px",
-                fontWeight: "500",
-                color: "grey.main",
-                overflow: "visible",
-            }, */
+           
             "&::-webkit-input-placeholder":{
                 fontSize: "15px",
                 lineHeight: "15px",

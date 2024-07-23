@@ -4,7 +4,8 @@ import {
   CREATE_EMPLOYEE,
   DELETE_EMPLOYEE,
   ADD_LEAVE,
-  GET_LEAVES,GENERATE_SALARYSLIP
+  GET_LEAVES,GENERATE_SALARYSLIP,
+  DELETE_BY_STATUS
 } from '../Redux/ActionTypes'
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
@@ -55,8 +56,7 @@ export const createEmployeeProfile = (createEmployee,setLoading,navigate) => {
   
   }
   
-  
-  export const deleteEmployee = (emp_Code,setShowLoader,navigate,setAnchorEl) => {
+  export const deleteEmployeeByStatus = (emp_Code,setShowLoader,navigate,setAnchorEl) => {
     const stringifiedUser = localStorage.getItem('user');
     const userAsObjectAgain = JSON.parse(stringifiedUser);
    const header = {
@@ -65,20 +65,6 @@ export const createEmployeeProfile = (createEmployee,setLoading,navigate) => {
     return (dispatch) => {
       axios.delete(`${BASE_URL}/employee/deleteByStatus/${emp_Code}`,{headers: header})
         .then(response => {
-          // if(response.data.status === 401){
-          //   toast(response.data.message);
-          //   // setShowLoader(false);
-          // }
-          // if(response.data.status === 403)
-          // {
-          // localStorage.clear();
-          // navigate('/')
-          // }
-          // if(response.data.status === 200)
-          // {
-          //   toast(response.data.message);
-          //   setShowLoader(false);
-          // }
           if(response.data.status === 403)
           {
             localStorage.clear();
@@ -99,16 +85,55 @@ export const createEmployeeProfile = (createEmployee,setLoading,navigate) => {
           }
 
           dispatch({
+            type: DELETE_BY_STATUS,
+            payload: response,
+            header: responseheader
+          });
+         }
+  
+        })
+        .catch(error => {
+          
+        })
+    }
+  }
+  
+
+  export const deleteEmployee = (emp_Code,setShowLoader,navigate,setAnchorEl) => {
+    const stringifiedUser = localStorage.getItem('user');
+    const userAsObjectAgain = JSON.parse(stringifiedUser);
+   const header = {
+     Authorization: `Bearer ${userAsObjectAgain?.access_token}`
+   }
+    return (dispatch) => {
+      axios.delete(`${BASE_URL}/employee/delete/${emp_Code}`,{headers: header})
+        .then(response => {
+          if(response.data.status === 403)
+          {
+            localStorage.clear();
+            navigate('/')
+          }
+         else{
+          if(response.data.status === 401){
+              toast(response.data.message);
+              setShowLoader(false);
+              setAnchorEl(null);
+            }
+          if(response.data.status === 200)
+          {
+            toast(response.data.message);
+            setShowLoader(false);
+            setAnchorEl(null);
+          }
+          dispatch({
             type: DELETE_EMPLOYEE,
             payload: response.data,
             header: responseheader
           });
          }
-
   
         })
         .catch(error => {
-         
           
         })
     }
@@ -159,7 +184,6 @@ export const createEmployeeProfile = (createEmployee,setLoading,navigate) => {
     return (dispatch) => {
       axios.get(`${BASE_URL}/holiday/get`,{headers: header})
         .then(response => {
-          // setLoading(false);
           if(response.data.status === 403)
           {
           localStorage.clear();

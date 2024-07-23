@@ -12,10 +12,10 @@ import dateFormat, { masks } from "dateformat";
 
 
 export default function BasicInfo(props) {
-    
+
     return (
         <>
-        <Box sx={styles.empInfo}>
+            <Box sx={styles.empInfo}>
                 <Grid container rowSpacing={3} columnSpacing={{ xs: 1 }}>
                     <Grid item xs={6} md={4} sx={styles.infoList}>
                         <Typography className="title">First Name*</Typography>
@@ -49,7 +49,7 @@ export default function BasicInfo(props) {
                     </Grid>
                     <Grid item xs={6} md={4} sx={styles.infoList}>
                         <Typography className="title">Birth Date</Typography>
-                        <Typography className="info">{props.empProfileData.emp_birthdate ? dateFormat(props.empProfileData.emp_birthdate,'dd-mm-yyyy') : "-"}</Typography>
+                        <Typography className="info">{props.empProfileData.emp_birthdate ? dateFormat(props.empProfileData.emp_birthdate, 'dd-mm-yyyy') : "-"}</Typography>
                     </Grid>
                     <Grid item xs={6} md={4} sx={styles.infoList}>
                         <Typography className="title">Gender</Typography>
@@ -60,20 +60,25 @@ export default function BasicInfo(props) {
                         <Typography className="info">{props.empProfileData.emp_marital_status ? props.empProfileData.emp_marital_status : "-"}</Typography>
                     </Grid>
                     <Grid item xs={6} md={4} sx={styles.infoList}>
+                        <Typography className="title">PAN Card</Typography>
+                        <Typography className="info">{props.empProfileData.emp_pan_card ? props.empProfileData.emp_pan_card : "-"}</Typography>
+                    </Grid>
+                    <Grid item xs={6} md={4} sx={styles.infoList}>
                         <Typography className="title">Address</Typography>
                         <Typography className="info">{props.empProfileData.emp_address ? props.empProfileData.emp_address : "-"}</Typography>
                     </Grid>
+                    
                 </Grid>
 
-                
+
             </Box>
             <Button sx={styles.downloadButton} variant="contained" startIcon={<GetAppIcon />}>
-            Download Resume
-        </Button>
-        <Button sx={styles.downloadButton} variant="contained" startIcon={<AssignmentOutlinedIcon />}>
-            Documents
-        </Button>
+                Download Resume
+            </Button>
+            <Button sx={styles.downloadButton} variant="contained" startIcon={<AssignmentOutlinedIcon />}>
+                Documents
+            </Button>
         </>
-        
+
     )
 }

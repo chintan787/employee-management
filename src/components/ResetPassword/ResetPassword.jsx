@@ -41,7 +41,6 @@ export default function ResetPassword() {
                 <Box className='right-wrapper'>
                     <Box sx={styles.helloEmoji}><img src='/icon-password.png' alt='' /></Box>
                     
-                    {/* <ConfirmOTP isconfirmOTP={isconfirmOTP} setIsConfirmOTP={setIsConfirmOTP} /> */}
                     {isGetOTP && !isconfirmOTP ?
                         <ConfirmOTP isconfirmOTP={isconfirmOTP} setIsConfirmOTP={setIsConfirmOTP} />
                         : !isconfirmOTP ? <EmailForm isGetOTP={isGetOTP} setIsGetOTP={setIsGetOTP} isEmail={isEmail} setIsEmail={setIsEmail} /> : ""

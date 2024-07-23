@@ -13,7 +13,6 @@ import {
     RadioGroup,
     FormControlLabel,
     FormControl,
-    FormHelperText,
     Radio,
     Stack,
     Tooltip,
@@ -23,8 +22,6 @@ import {
     CardContent,
     Select,
     Chip,
-    NativeSelect,
-    getTableSortLabelUtilityClass,
     CircularProgress
 
 } from '@mui/material';
@@ -37,13 +34,9 @@ import CustomCard from '../../components/CustomCard/CustomCard';
 import ImageUploading from "react-images-uploading";
 import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
 import OutlinedInput from '@mui/material/OutlinedInput';
-import { useParams } from 'react-router-dom';
 import dateFormat, { masks } from "dateformat";
 
-// import Delayed from '../../components/Delayed/Delayed';
 
-
-// export default function CreateProfile({ props, createEmp }) {
 export default function CreateProfile(props) {
 
     const [createEmployee, setCreateEmployee] = useState()
@@ -72,6 +65,7 @@ export default function CreateProfile(props) {
             emp_basic_salary: "",
             emp_joining_date: "",
             emp_total_experience: "",
+            emp_pan_card:"",
             emp_next_increment:"",
             emp_status:1,
         }
@@ -95,16 +89,7 @@ export default function CreateProfile(props) {
     const ListOfSkills = ["java", "Spring", "MySql", "HTML", "CSS", "java-script", "Bootstrap", "Matirial-UI", "node js", "mongodb", "React Js"]
     const statusData = ["single", "married", "widowed", "divorced"]
     const data = [
-        // { city: "Philps", state: "New York" },
-        // { city: "Square", state: "Chicago" },
-        // { city: "Market", state: "New York" },
-        // { city: "Booket", state: "Texas" },
-        // { city: "Brookfield", state: "Florida" },
-        // { city: "Old street", state: "Florida" },
         { city: "Ahmedabad", state: "Gujarat" },
-      
-
-        // { city: "Jaipur", state: "Rajasthan" },
 
     ]
     const cityData = ["Anand","Ahmedabad","Bhavnagar","Gandhinagar","Junagadh","Rajkot","Surat","Una","Vadodara",]
@@ -255,32 +240,22 @@ export default function CreateProfile(props) {
 
                                         <ImageUploading
                                             name="emp_image_name"
-                                            //  value={id ? isEditInputValues.emp_image_name : imagePath }
-                                            //   value={id ? imagePath : ""}
                                             onChange={hanldeImages}
-                                            // onChange={handleProfileValues}
                                             maxNumber={maxNumber}
                                             dataURLKey="data_url"
                                         >
                                             {({
-                                                //  imageList,
                                                 onImageUpload,
                                                 onImageUpdate,
                                                 dragProps
                                             }) => (
 
                                                 <Box className="upload__image-wrapper">
-                                                    {/* {imageList.map((image, index) => (  */}
-
-                                                    <Box /* key={index}  */ className="image-item" >
+                                                    <Box  className="image-item" >
                                                         <Avatar sx={styles.empName} src={isImgUrl ? imagePath : isEditInputValues.emp_image_name}  >
-                                                            {/* {props.empProfileData?.emp_first_name.charAt(0)}{props.empProfileData?.emp_last_name.charAt(0)} */}
                                                         </Avatar>
                                                     </Box>
-                                                    {/* ))} */}
                                                     <Box sx={styles.editProfileImage}>
-                                                        {/* onClick={imagePath ? onImageUpload : onImageUpdate } */}
-                                                        {/* onClick={isEditInputValues.emp_image_name  ? onImageUpdate : onImageUpload} */}
                                                         <Button onClick={isEditInputValues.emp_image_name ? onImageUpdate : onImageUpload}   {...dragProps} sx={styles.editProfileButton} startIcon={<FileUploadOutlinedIcon />}>Upload</Button>
                                                     </Box>
                                                 </Box>
@@ -432,38 +407,7 @@ export default function CreateProfile(props) {
 
                                             </Grid>
 
-                                            {/* <Grid item xs={6} md={4} sx={styles.infoList}>
-                                                <Typography className="title">City</Typography>
-                                              
-                                                <Select
-                                                    sx={inputStyles.formSelectInput}
-                                                    displayEmpty
-                                                    name="emp_city"
-                                                    value={isEditInputValues.emp_city ? isEditInputValues.emp_city : ""}
-                                                    onChange={handleProfileValues}
-                                                    input={<OutlinedInput />}
-                                                    renderValue={(selected) => {
-                                                        if (selected.length === 0) {
-                                                            return <Typography sx={inputStyles.selectPlaceholder}>Select City</Typography>;
-                                                        }
-
-                                                        return selected;
-                                                    }}
-                                                    MenuProps={MenuProps}
-                                                    inputProps={{ 'aria-label': 'Without label' }}
-                                                >
-                                                    <MenuItem disabled value="">
-                                                        <em>Select City</em>
-                                                    </MenuItem>
-                                                    {data.filter(function (item) {
-                                                        return item.state === isEditInputValues.emp_state;
-                                                    }).map((option, index) => (
-                                                        <MenuItem key={index} value={option.city}>
-                                                            {option.city}
-                                                        </MenuItem>
-                                                    ))}
-                                                </Select>
-                                            </Grid> */}
+                                          
 
                                             <Grid item xs={6} md={4} sx={styles.infoList}>
                                                 <Typography className="title">City</Typography>
@@ -499,7 +443,11 @@ export default function CreateProfile(props) {
                                                     }
                                                 </Select>
                                             </Grid>
-
+                                            <Grid item xs={6} md={4} sx={styles.infoList}>
+                                                <Typography className="title">PAN Card</Typography>
+                                                <TextField type="text" sx={inputStyles.formInput} placeholder="Enter PAN card number" value={isEditInputValues.emp_pan_card ? isEditInputValues.emp_pan_card : ""} name="emp_pan_card" 
+                                                 onChange={handleProfileValues} />
+                                            </Grid>
                                             <Grid item xs={6} md={4} sx={styles.infoList}>
                                                 <Typography className="title">Address</Typography>
                                                 <TextField
@@ -513,6 +461,10 @@ export default function CreateProfile(props) {
                                                     onChange={handleProfileValues}
                                                 />
                                             </Grid>
+
+
+                                           
+                                            
                                         </Grid>
                                     </Box>
 
@@ -526,7 +478,6 @@ export default function CreateProfile(props) {
                                             <Grid item xs={6} md={4} sx={styles.infoList}>
                                                 <Typography className="title">Designation</Typography>
                                                 <TextField type="text" name="emp_designation" value={isEditInputValues.emp_designation ? isEditInputValues.emp_designation : ""} sx={inputStyles.formInput} placeholder="Enter Designation" onChange={handleProfileValues} />
-                                                {/* {errors.emp_designation ? <Alert severity="error"> {errors.emp_designation?.message}</Alert> : ""} */}
                                             </Grid>
                                             <Grid item xs={6} md={4} sx={styles.infoList}>
                                                 <Typography className="title">BIO</Typography>
@@ -586,10 +537,7 @@ export default function CreateProfile(props) {
                                                 <Typography className="title">Date of Joining</Typography>
                                                 <TextField type="date" sx={inputStyles.formInput} placeholder="select date of joining" value={isEditInputValues.emp_joining_date ? isEditInputValues.emp_joining_date : ""} name="emp_joining_date" onChange={handleProfileValues} />
                                             </Grid>
-                                            {/* <Grid item xs={6} md={4} sx={styles.infoList}>
-                                                <Typography className="title">Total Experience</Typography>
-                                                <TextField type="number" sx={inputStyles.formInput} placeholder="enter experience" value={isEditInputValues.emp_total_experience ? isEditInputValues.emp_total_experience : ""} name="emp_total_experience" onChange={handleProfileValues} />
-                                            </Grid> */}
+                                            
                                             <Grid item xs={6} md={4} sx={styles.infoList}>
                                                 <Typography className="title">Next Increment</Typography>
                                                 <TextField inputProps={{min:min}} type="month" sx={inputStyles.formInput} id="txtDate" min={min} placeholder="select date of next increment" value={empNextIncrement ? empNextIncrement : ""} name="emp_next_increment" onChange={handleProfileValues} />
@@ -598,7 +546,6 @@ export default function CreateProfile(props) {
                                             <Grid item xs={6} md={4} sx={styles.infoList}>
                                                 <Typography className="title">Status</Typography>
                                                 <TextField type="number" sx={inputStyles.formInput} placeholder="enter status" value={isEditInputValues?.emp_status } name="emp_status" onChange={handleProfileValues} />
-                                                {/* replace(/[^0-1]/g, '') */}
                                             </Grid>
 
                                         </Grid>

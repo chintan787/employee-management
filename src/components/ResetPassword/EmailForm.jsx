@@ -67,7 +67,6 @@ export default function EmailForm(props) {
                 <Typography sx={styles.formSubheading} variant='subtitle1' gutterBottom component="p">Enter your email and we will send you a verification code</Typography>
             </Box>
 
-            {/* value: /^([a-zA-Z0-9\.-]+)@([a-zA-Z0-9-]+).([a-z]{2,8})(.[a-z]{2,8})?$/, */}
             <Box sx={styles.formContent}>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <label>E-mail</label>

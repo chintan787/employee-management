@@ -12,7 +12,6 @@ import MenuIcon from '@mui/icons-material/Menu';
 export default function Header(props) {
 
     const [mobileOpen, setMobileOpen] = React.useState(false);
-    /* const [contact ,setContact] = useState(data); */
     const drawerWidth = 250;
     const { window } = props;
     const handleDrawerToggle = () => {

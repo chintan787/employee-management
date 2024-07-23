@@ -123,6 +123,7 @@ export default function SalarySlipFormat({ empInfo, setEmpInfo, isDownloadClick,
             setEmpInfo({
                 ...empInfo,
                 emp_fullname: fullname,
+                emp_code:value.emp_code,
                 emp_designation: designation,
                 salary: salary,
                 totalWorkDays: empInfo.totalWorkDays,
@@ -172,7 +173,7 @@ export default function SalarySlipFormat({ empInfo, setEmpInfo, isDownloadClick,
         calCulateSalaryDescription(parseInt(result))
     }
 
-  
+
 
     useEffect(() => {
         calculateNetSalary();
@@ -207,10 +208,8 @@ export default function SalarySlipFormat({ empInfo, setEmpInfo, isDownloadClick,
     };
 
     const calculateGrossSalary = () => {
-        // const test = basic + HRA + uniform + travel + empInfo.bonus + empInfo.otherEarnings + empInfo.paidLeaves - empInfo?.security_hold
         const test = salaryDescription.basic + salaryDescription.HRA + salaryDescription.uniform + salaryDescription.travel + empInfo.bonus + empInfo.otherEarnings + empInfo.paidLeaves
         const gross_salary_cal = test
-        // const gross_salary_cal = enableSecurityHold ?  basic + HRA + uniform + travel + empInfo.bonus + empInfo.otherEarnings + empInfo.paidLeaves - empInfo?.security_hold  : basic + HRA + uniform + travel + empInfo.bonus + empInfo.otherEarnings + empInfo.paidLeaves
         setEmpInfo({ ...empInfo, gross_salary: gross_salary_cal })
     }
 
@@ -347,7 +346,6 @@ export default function SalarySlipFormat({ empInfo, setEmpInfo, isDownloadClick,
         }
     }, [downloadPdf])
 
-
     return (
         <PDFExport
             ref={pdfExportComponent}
@@ -381,8 +379,8 @@ export default function SalarySlipFormat({ empInfo, setEmpInfo, isDownloadClick,
                         </Grid>
                         <Grid item xs={6} sx={styles.companyLogoContainer}>
 
-                            <img className='company-logo' src='/stroke-logo.svg' alt='Stroke-Infotech-logo' width="60%" height="100%" />
-                            <img className='company-logo' src='/stroke-logo.svg' alt='Stroke-Infotech-logo' width="60%" height="100%" style={{ display: 'none' }} />
+                            <img className='company-logo' src='/strokeinfotech-logo.svg' alt='Stroke-Infotech-logo' width="60%" height="100%" />
+                            <img className='company-logo' src='/strokeinfotech-logo.svg' alt='Stroke-Infotech-logo' width="60%" height="100%" style={{ display: 'none' }} />
 
                         </Grid>
                     </Grid>
@@ -418,6 +416,10 @@ export default function SalarySlipFormat({ empInfo, setEmpInfo, isDownloadClick,
                                     )}
                                 </Box>
                             </Grid>
+
+
+
+
                             {isDownloadClick ?
                                 <Grid
                                     item
@@ -427,7 +429,7 @@ export default function SalarySlipFormat({ empInfo, setEmpInfo, isDownloadClick,
                                     className="leaveSection"
                                 >
                                     <label className="inputLabels">
-                                        Total working days:
+                                        Total working dayss:
                                     </label>
                                     <Box>
 
@@ -451,25 +453,27 @@ export default function SalarySlipFormat({ empInfo, setEmpInfo, isDownloadClick,
                                 </Grid>
                                 : ""}
 
-                            <Grid item xs={12} md={isDownloadClick ? 8 : 12} sx={styles.employeeInfogridItem}>
-                                <label className="inputLabels">Designation:</label>
+
+                            <Grid item xs={12} md={isDownloadClick ? 8 : 6} sx={styles.employeeInfogridItem}>
+                                <label className="inputLabels">Employee Code:</label>
+
                                 <Box sx={styles.inputValues}>
                                     {isDownloadClick ? (
-                                        <Typography >
-                                            {empInfo ? empInfo.emp_designation : ""}
-                                        </Typography>
+                                        <Typography >{empInfo ? empInfo.emp_code : ""}</Typography>
                                     ) : (
                                         <TextField
                                             type="text"
-                                            name="emp_designation"
+                                            id="standard-basic"
                                             sx={styles.empData}
-                                            value={empInfo ? empInfo.emp_designation : ""}
                                             variant="standard"
+                                            name="emp_code"
+                                            value={empInfo ? empInfo.emp_code : ""}
                                             onChange={handleEmployeeData}
                                         />
                                     )}
                                 </Box>
                             </Grid>
+
                             {isDownloadClick ?
                                 <Grid
                                     item
@@ -503,15 +507,27 @@ export default function SalarySlipFormat({ empInfo, setEmpInfo, isDownloadClick,
                                 : ""}
 
 
+                            <Grid item xs={12} md={isDownloadClick ? 8 : 6} sx={styles.employeeInfogridItem}>
+                                <label className="inputLabels">Designation:</label>
+                                <Box sx={styles.inputValues}>
+                                    {isDownloadClick ? (
+                                        <Typography >
+                                            {empInfo ? empInfo.emp_designation : ""}
+                                        </Typography>
+                                    ) : (
+                                        <TextField
+                                            type="text"
+                                            name="emp_designation"
+                                            sx={styles.empData}
+                                            value={empInfo ? empInfo.emp_designation : ""}
+                                            variant="standard"
+                                            onChange={handleEmployeeData}
+                                        />
+                                    )}
+                                </Box>
+                            </Grid>
 
-                            {isDownloadClick && (
-                                <Grid item xs={12} md={8} sx={styles.employeeInfogridItem}>
-                                    <label className="inputLabels">Gross Salary:</label>
-                                    <Box sx={styles.inputValues}>
-                                        <Typography >{empInfo ? empInfo.salary?.toLocaleString("en-US") : ""}</Typography>
-                                    </Box>
-                                </Grid>
-                            )}
+
                             {isDownloadClick && !enableSecurityHold && (
                                 <Grid item xs={12}
                                     md={4} sx={styles.employeeInfogridItem}>
@@ -521,6 +537,19 @@ export default function SalarySlipFormat({ empInfo, setEmpInfo, isDownloadClick,
                                     </Box>
                                 </Grid>
                             )}
+                            
+
+
+
+                            {isDownloadClick && (
+                                <Grid item xs={12} md={8} sx={styles.employeeInfogridItem}>
+                                    <label className="inputLabels">Gross Salary:</label>
+                                    <Box sx={styles.inputValues}>
+                                        <Typography >{empInfo ? empInfo.salary?.toLocaleString("en-US") : ""}</Typography>
+                                    </Box>
+                                </Grid>
+                            )}
+                            
 
                             {!isDownloadClick ?
                                 <Grid item xs={12} md={6} sx={styles.employeeInfogridItem}>
