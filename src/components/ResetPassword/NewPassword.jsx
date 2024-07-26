@@ -6,16 +6,10 @@ import { inputStyles } from '../FormInput.style'
 import { Link , useNavigate} from "react-router-dom";
 import {
     Box,
-    Grid,
     Typography,
     TextField,
     Button,
-    Hidden,
-    Snackbar
-    /* Link */
 } from '@mui/material';
-import CommentIcon from '@mui/icons-material/Comment';
-import { ToastContainer ,toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useForm } from "react-hook-form";
 import Alert from '@mui/material/Alert'
@@ -87,7 +81,6 @@ export default function NewPassword(props) {
                 <label>Confirm password</label>
                 <TextField sx={inputStyles.textfieldPassword} name="confirm_password" placeholder='Type your confirm password' type='password' {...register("confirm_password", {
                     required: "Confirm Password is required", validate: (value) => {
-                        /* const { password } = getValues(); */
                         if (watch('new_password') !== value) {
                             return "Password and Confirm Password doesn't match";
                         }

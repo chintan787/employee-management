@@ -27,6 +27,7 @@ import Alert from '@mui/material/Alert';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import SalarySlipFormat from "./SalarySlipFormat";
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+// import { PDFDownloadLink, Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer';
 
 export default function EmployeeSalarySlip() {
 
@@ -140,6 +141,8 @@ export default function EmployeeSalarySlip() {
   }
   return (
     <>
+ 
+
       <Box>
         {loading ? (
           <Box sx={styles.emptyDiv}>
@@ -285,8 +288,6 @@ export default function EmployeeSalarySlip() {
           <ToastContainer position="bottom-right" autoClose={10000} />
         </Box>
       </Box>
-
-
 
 
     </>

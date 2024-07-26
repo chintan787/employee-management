@@ -12,8 +12,21 @@ export const styles = {
         }
 
     },
+    salarySlipData :{
+        fontSize:"12px",
+    },
+    boldHeading:{
+        fontWeight:700,
+        fontSize:"12px",
+        "& .signatureLabel":{
+            paddingBottom: "15px",
+        }
+    },
+    gstNumber: {
+        paddingTop: '4px',
+    },
     companyLogoContainer: {
-        paddingTop: '7px',
+        marginTop: '7px',
         textAlign: 'right',
     },
     signatureContainer: {
@@ -62,7 +75,9 @@ export const styles = {
         "& .inputLabels": {
             textTransform: "capitalize",
             paddingRight: "5px",
-            color:"#000",
+            color: "#000",
+            fontSize:'12px',
+            fontWeight:'700'
         },
         "& label": {
             fontWeight: '700'
@@ -86,7 +101,8 @@ export const styles = {
         "& .MuiTableHead-root .MuiTableCell-root": {
             fontWeight: '700',
             fontSize: "14px",
-            padding: "4px 5px",
+            padding: "4px",
+            // padding: 0,
 
         },
         "& .MuiTableCell-root": {
@@ -94,6 +110,7 @@ export const styles = {
             borderTop: '1px solid #000',
             borderBottom: 'none',
             padding: "2px 4px",
+            // padding: 0,
             fontSize: "12px",
             lineHeight: "20px",
             fontWeight: '500',
@@ -102,8 +119,59 @@ export const styles = {
                 borderRight: "1px solid #000",
             }
         },
+        "& .MuiTableBody-root .MuiTableRow-root:last-of-type .MuiTableCell-root:last-of-type" : {
+            borderRight: "none",
+        },
+        "& .MuiTableBody-root .MuiTableRow-root:nth-last-of-type(2) .MuiTableCell-root:nth-last-of-type(2)" : {
+            borderBottom: "1px solid #000",
+        },
+        "& .MuiTableBody-root .MuiTableRow-root:nth-last-of-type(2) .MuiTableCell-root:last-of-type" : {
+            borderBottom: "1px solid #000",
+        },
         "& .MuiTableBody-root .MuiTableRow-root:last-of-type .MuiTableCell-root": {
             borderBottom: "1px solid #000",
+            fontWeight: '700',
+            fontSize: "12px",
+            // padding:'2px 4px'
+        }   
+
+    },
+
+    tableNew: {
+        tableLayout: "fixed",
+        borderCollapse: 'initial',
+    
+        "& .MuiTableHead-root .MuiTableCell-root": {
+            fontWeight: '700',
+            fontSize: "14px",
+            padding: "4px ",
+
+        },
+        "& .MuiTableCell-root": {
+            borderBottom: 'none',
+            borderBottom: 'none',
+            padding: "2px 4px",
+            fontSize: "12px",
+            lineHeight: "20px",
+            fontWeight: '500',
+            color: "#000",
+        },
+        "& .MuiTableBody-root .MuiTableRow-root:last-of-type .MuiTableCell-root": {
+            borderBottom: "1px solid #000",
+            fontWeight: '700',
+            fontSize: "12px",
+            padding:'2px 4px'
+        },
+        "& .MuiTableBody-root .MuiTableRow-root:nth-last-of-type(2) .MuiTableCell-root:nth-last-of-type(2)" : {
+            borderBottom: "1px solid #000",
+        },
+        "& .MuiTableBody-root .MuiTableRow-root:nth-last-of-type(2) .MuiTableCell-root:last-of-type" : {
+            borderBottom: "1px solid #000",
+        },
+
+        "& .MuiTableBody-root .MuiTableRow-root:nth-last-of-type(3) .MuiTableCell-root": {
+            borderBottom: "1px solid #000",
+            borderTop: "1px solid #000",
             fontWeight: '700',
             fontSize: "12px",
         }
@@ -181,6 +249,7 @@ export const styles = {
     inputValues: {
         textTransform: "capitalize",
         lineHeight: "14px",
+        fontSize:"18px",
         width: {
             xs: "60%",
             lg: "60%",
@@ -226,7 +295,7 @@ export const styles = {
         padding: "15px"
     },
     tableHeadingAmount: {
-        textAlign: 'right',
+        // textAlign: 'right',
         backgroundColor: '#d9d7d7'
 
     },
@@ -258,9 +327,12 @@ export const styles = {
     },
     empData: {
         width: '100%',
+       
         "& .MuiInput-input": {
             padding: '4px',
             width: '100%',
+            fontSize:'12px',
+            fontWeight:'400',
         },
     },
     leaveData: {
@@ -269,10 +341,14 @@ export const styles = {
         "& .MuiInput-input": {
             padding: '4px',
             width: '10%',
+            // fontSize:'12px',
+            // fontWeight:'400'
         },
         "& .MuiOutlinedInput-input": {
             padding: '4px',
             width: '100%',
+            fontSize:'12px',
+            fontWeight:'400'
         },
         "& input::-webkit-outer-spin-button": {
             WebkitAppearance: 'none',
@@ -299,7 +375,7 @@ export const styles = {
         },
         "& input": {
             padding: '1px',
-            textAlign: 'right',
+            // textAlign: 'right',
 
         },
         "& input::-webkit-outer-spin-button": {
@@ -326,9 +402,11 @@ export const styles = {
     boldTableCell: {
         fontWeight: '700 !important',
         fontSize: '12px',
+        lineHeight:"20px",
+        borderBottom:"1px solid #000"
     },
     uploadImage: {
-        maxWidth: '28%',
+        maxWidth: '25%',
         margin: '0 0 0 auto',
         padding: '10px 0',
         "& .edit-button": {
@@ -345,7 +423,7 @@ export const styles = {
     },
     tableCells: {
         "& .MuiTableRow-root .MuiTableCell-root:nth-of-type(even)": {
-            textAlign: 'right',
+            // textAlign: 'right',
         },
         "& .MuiTableRow-root .MuiTableCell-root": {
         }
@@ -361,7 +439,7 @@ export const styles = {
         textAlign: "center",
         fontWeight: "500",
         color: "#000",
-        fontSize: "14px",
+        fontSize: "12px",
         fontFamily: "'Inter', sans-serif",
     },
     slipDatecontainer: {
@@ -369,10 +447,10 @@ export const styles = {
         justifyContent: "center",
         alignItems: "center"
     },
-    lastLebel:{
-        paddingLeft:"5px"
+    lastLebel: {
+        paddingLeft: "5px"
     },
-    
+
 
 }
 

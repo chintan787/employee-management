@@ -45,7 +45,6 @@ export default function Routers() {
                         <Route exact path="/employees/update/:id" element={<CreateEditEmpProfile />}></Route>
                         <Route exact path="/payroll" element={<PayRollPage />}></Route>
                         <Route exact path="/leaves" element={<EmployeeLeavesPage />}></Route>
-                       
                     </Route>
 
 
