@@ -429,9 +429,11 @@ export const styles = {
         }
     },
     leavesCount: {
+        fontSize:12
     },
     showLoaderForMail: {
-        color: "primary.light",
+        // color: "primary.light",
+        color:'#fff',
         position: "absolute"
     },
     note: {

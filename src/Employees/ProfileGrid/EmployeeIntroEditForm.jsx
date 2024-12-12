@@ -174,7 +174,7 @@ export default function EmployeeIntroEditForm(props) {
                             }
                         })} style={{ marginBottom: "15px" }} sx={inputStyles.formInput} placeholder="Enter First Name" value={isEditInputValues.emp_first_name} onChange={handleEmployeeIntroChangeValues} />
                         {errors.emp_first_name ? <Alert severity="error"> {errors.emp_first_name?.message}</Alert> : ""}
-
++
 
                         <Typography className="title">Last Name*</Typography>
                         <TextField type="text" name="emp_last_name" {...register("emp_last_name", {

@@ -29,7 +29,6 @@ export default function Router() {
 
     const stringifiedUser = localStorage.getItem('user');
     const userAsObjectAgain = JSON.parse(stringifiedUser);
-    console.log("userAsObjectAgain", userAsObjectAgain)
 
     /* const navigate = useNavigate();
    useEffect(() => {

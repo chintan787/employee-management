@@ -1,6 +1,5 @@
 import { createStore, applyMiddleware, combineReducers} from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import logger from 'redux-logger' 
 import thunk from 'redux-thunk'
 // import EmployeesReducer from '../Reducer/EmployeesReducer';
 import  { EmployeesReducer,EmployeeReducer, UpdateEmployeeReducer  } from '../Reducer/EmployeesReducer';
@@ -29,7 +28,7 @@ const rootReducer = combineReducers({
 
 export const ConfigureStore = () => {
  const  store = createStore(rootReducer,composeWithDevTools(
-    applyMiddleware(logger,thunk))
+    applyMiddleware(thunk))
     
     )
     return store 

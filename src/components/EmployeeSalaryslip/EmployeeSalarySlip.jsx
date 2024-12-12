@@ -41,7 +41,7 @@ export default function EmployeeSalarySlip() {
   const [showEmailLoader, setShowEmailLoader] = useState(false);
   const [showMessageBox, setShowMessageBox] = useState(false);
   const [sendEmail, setSendEmail] = useState(false);
-  const [enableSecurityHold, setEnableSecurityHold] = useState(true);
+  const [enableSecurityHold, setEnableSecurityHold] = useState(false);
 
   const currentTime = new Date();
   const currmonth = currentTime.toLocaleString("default", { month: "long" });

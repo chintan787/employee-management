@@ -34,7 +34,6 @@ export default function Dashboard() {
       title: "Total Salary Expenses",
       total_result: expenses?.toLocaleString("en-US"),
       status: "profit",
-      // status_value: "(+5%)",
       time: "since last month"
     },
     {
@@ -42,7 +41,6 @@ export default function Dashboard() {
       title: "Total Employees",
       total_result: currentEmpCount,
       status: "profit",
-      // status_value: "(+20%)",
       time: "since last month"
     },
     {
@@ -50,18 +48,8 @@ export default function Dashboard() {
       title: "Total Past Employees",
       total_result: empData?.length - currentEmpCount,
       status: "loss",
-      // status_value: "(-15%)",
       time: "since last month"
     },
-    // {
-    //   image_url: <GraphIcon />,
-    //   title: "Recruitments",
-    //   total_result: "57",
-    //   status: "profit",
-    //   status_value: "(100%)",
-    //   time: "since last month"
-    // },
-   
   ]
   
   const cardStyles = {  
@@ -70,12 +58,9 @@ export default function Dashboard() {
       flexWrap: "wrap",
       width: "100%",
       margin: "6px 0",
-     
     }
   }
 
-  
-  
   useEffect(() => {
     dispatch(getEmployees(setLoading,navigate))
   }, [])
@@ -111,34 +96,12 @@ export default function Dashboard() {
 
     <Box sx={styles.pageContent} component="main">
       <Toolbar />
-
-
-     {/*  <Box sx={{ flexGrow: 1 }}>
-      <Grid container spacing={2}>
-       
-        {cardData.map((card, index) => (
-           <Grid item xs={4} md={3}>
-          <QuickCard key={index} icon={card.image_url} title={card.title} statistics={card.total_result} growthData={card.status_value} growthStatus={card.status} time={card.time} template="one" />
-          </Grid>
-        ))}
-        </Grid>
-        
-    </Box> */}
-
        <Box sx={cardStyles.cardListSection}>
         {cardData.map((card, index) => (
           <QuickCard key={index} icon={card.image_url} title={card.title} statistics={card.total_result} growthData={card.status_value} growthStatus={card.status} time={card.time} template="one" />
         ))}
       </Box> 
-
-    {/*   <Box sx={cardStyles.cardListSection}>
-        {cardData.map((card, index) => (
-          <QuickCard key={index} icon={card.image_url} title={card.title} statistics={card.total_result} growthData={card.status_value} growthStatus={card.status} time={card.time} template="two" />
-        ))}
-      </Box> */}
-
         <EmployeesTable  empData={empData}/>  
-
     </Box>
 
   );

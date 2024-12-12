@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { styles } from './ProfileGrid.style'
 import {
     Box,
@@ -6,29 +6,47 @@ import {
     Typography,
 } from '@mui/material';
 import dateFormat, { masks } from "dateformat";
-import { QrCodeScannerOutlined } from '@mui/icons-material';
 
 export default function TechnicalInfo(props) {
 
 
 
-    const experience = props.empProfileData?.emp_total_experience
     const stringifiedUser = localStorage.getItem('user');
     const userAsObjectAgain = JSON.parse(stringifiedUser);
     const role = userAsObjectAgain?.user_role;
+    let employeeTenure;
 
+    function calculateYearsAndMonths(startDate) {
+        if (!(startDate instanceof Date) || isNaN(startDate)) {
+            console.error("Invalid start date provided");
+            return "Please provide a valid date.";
+        }
+        const endDate = new Date(); // Use today's date as the end date
+        // Calculate full years and months
+        let years = endDate.getFullYear() - startDate.getFullYear();
+        let months = endDate.getMonth() - startDate.getMonth();
 
+        // Adjust for negative months (when end month is earlier than start month)
+        if (months < 0) {
+            years -= 1;
+            months += 12;
+        }
 
-    function calculateYearDifference(startDate, endDate) {
-        const millisecondsPerYear = 1000 * 60 * 60 * 24 * 365.25; 
-        const differenceInMilliseconds = endDate - startDate;
-        return differenceInMilliseconds / millisecondsPerYear;
+        // Format the result
+        const yearsText = years > 1 ? `${years} years` : `${years} year`;
+        const monthsText = months > 1 ? `${months} months` : `${months} month`;
+
+        if (years === 0) return monthsText; // If less than a year
+        if (months === 0) return yearsText; // If no extra months
+
+        return `${yearsText} and ${monthsText}`; // Both years and months
     }
-  
-    let endDate = new Date();
-    let startDate = new Date(props?.empProfileData?.emp_joining_date);
-    const yearDifferencess = calculateYearDifference(startDate, endDate);
-    const roundedNumber = yearDifferencess.toFixed(1);
+
+    if (props?.empProfileData?.emp_joining_date) {
+        const startDate = new Date(props?.empProfileData?.emp_joining_date);
+        employeeTenure = calculateYearsAndMonths(startDate);
+    }
+
     return (
 
         <Box sx={styles.empInfo}>
@@ -48,8 +66,8 @@ export default function TechnicalInfo(props) {
                 <Grid item xs={6} md={4} sx={styles.infoList}>
                     <Typography className="title">Years in Company</Typography>
                     <Typography className="info">
-                        {props.empProfileData?.emp_status === 1 ? props?.empProfileData?.emp_joining_date ? roundedNumber : '-' : '-'}
-                        </Typography>
+                        {props.empProfileData?.emp_status === 1 ? props?.empProfileData?.emp_joining_date ? employeeTenure : '-' : '-'}
+                    </Typography>
                 </Grid>
                 {role === 1 && (
                     <>
@@ -57,7 +75,7 @@ export default function TechnicalInfo(props) {
                             <Typography className="title">Next Increment</Typography>
                             <Typography className="info">
                                 {props.empProfileData.emp_next_increment ? props.empProfileData.emp_next_increment : "-"}
-                                </Typography>
+                            </Typography>
                         </Grid>
                         <Grid item xs={6} md={4} sx={styles.infoList}>
                             <Typography className="title">Status</Typography>

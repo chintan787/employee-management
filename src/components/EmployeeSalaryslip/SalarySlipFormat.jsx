@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react'
+import React, { useRef, useState, useEffect, useCallback } from 'react'
 import { PDFExport } from "@progress/kendo-react-pdf";
 import { useSelector, useDispatch } from "react-redux";
 import { genrateSalarySlip } from '../../Action/Admin';
@@ -114,8 +114,10 @@ export default function SalarySlipFormat({ empInfo, setEmpInfo, isDownloadClick,
     })
 
     const handleChange = (event) => {
-        // setChecked(event.target.checked);
-        setEnableSecurityHold(!event.target.checked)
+        setEnableSecurityHold(event.target.checked);
+        if (event.target.checked === false) {
+            setEmpInfo({ ...empInfo, security_hold: 0 })
+        }
     };
 
 
@@ -163,23 +165,27 @@ export default function SalarySlipFormat({ empInfo, setEmpInfo, isDownloadClick,
             HRA: HRA,
             uniform: uniform,
             travel: travel,
+            // basic: Math.round(basic),
+            // HRA: Math.round(HRA),
+            // uniform: Math.round(uniform),
+            // travel: Math.round(travel),
         })
+
+
     }
 
     const countSalaryBasedLeave = () => {
-        const finalSalary = enableSecurityHold ? empInfo.salary : empInfo.salary - empInfo.security_hold
+        const finalSalary = empInfo.salary;
         const perDaySalary = finalSalary / empInfo.totalWorkDays
         const countworkingDays = empInfo.totalWorkDays - empInfo.leave;
-        const result = perDaySalary * countworkingDays
-        const z = result << 0
+        const result = perDaySalary * countworkingDays;
+        let finalRes = result - empInfo?.security_hold;
         setEmpInfo({
             ...empInfo,
-            calculation: parseInt(result),
+            calculation: Math.round(finalRes),
         });
-        calCulateSalaryDescription(parseInt(result))
+        calCulateSalaryDescription(Math.round(finalRes));
     }
-
-
 
     useEffect(() => {
         calculateNetSalary();
@@ -187,16 +193,12 @@ export default function SalarySlipFormat({ empInfo, setEmpInfo, isDownloadClick,
 
     useEffect(() => {
         countSalaryBasedLeave();
-    }, [empInfo.leave, empInfo.totalWorkDays, empInfo.security_hold, empInfo.salary, empInfo.totalWorkDays, enableSecurityHold])
+    }, [empInfo.leave, empInfo.totalWorkDays, empInfo.salary, empInfo.security_hold])
 
-    useEffect(() => {
-        // countSalaryBasedLeave();
-    }, [empInfo.salary, empInfo.totalWorkDays])
 
     const handleAddress = (e) => {
         const { name, value } = e.target;
         setAddress(value);
-
     };
 
     const handleEmployeeData = (e) => {
@@ -216,11 +218,8 @@ export default function SalarySlipFormat({ empInfo, setEmpInfo, isDownloadClick,
     const calculateGrossSalary = () => {
         const test = salaryDescription.basic + salaryDescription.HRA + salaryDescription.uniform + salaryDescription.travel + empInfo.bonus + empInfo.otherEarnings + empInfo.paidLeaves
         const gross_salary_cal = test
-        setEmpInfo({ ...empInfo, gross_salary: gross_salary_cal })
+        setEmpInfo({ ...empInfo, gross_salary: gross_salary_cal, calculation: test })
     }
-
-
-
     useEffect(() => {
         calculateGrossSalary();
     }, [salaryDescription.basic, empInfo.bonus, empInfo.otherEarnings, empInfo.paidLeaves, empInfo.security_hold])
@@ -338,7 +337,6 @@ export default function SalarySlipFormat({ empInfo, setEmpInfo, isDownloadClick,
         setTimeout(() => {
             if (value !== null) {
                 if (pdfExportComponent.current) {
-                    console.log("save", pdfExportComponent.current)
                     pdfExportComponent.current.save();
                     setDownloadPdf(false);
                 }
@@ -411,7 +409,7 @@ export default function SalarySlipFormat({ empInfo, setEmpInfo, isDownloadClick,
 
                                     {isDownloadClick ?
                                         <>
-                                        {/* <Typography className="inputLabels" sx={styles.boldHeading}>Employee Code:</Typography> */}
+                                            {/* <Typography className="inputLabels" sx={styles.boldHeading}>Employee Code:</Typography> */}
                                             <label className="inputLabels">Employee Code:</label>
                                             <Box sx={styles.inputValues}>
                                                 {isDownloadClick ? (
@@ -569,7 +567,7 @@ export default function SalarySlipFormat({ empInfo, setEmpInfo, isDownloadClick,
                                     <label className="inputLabels">Designation:</label>
                                     <Box sx={styles.inputValues}>
                                         {isDownloadClick ? (
-                                            <Typography   sx={styles.salarySlipData}>
+                                            <Typography sx={styles.salarySlipData}>
                                                 {empInfo ? empInfo.emp_designation : ""}
                                             </Typography>
                                         ) : (
@@ -586,12 +584,12 @@ export default function SalarySlipFormat({ empInfo, setEmpInfo, isDownloadClick,
                                 </Grid>
 
 
-                                {isDownloadClick && !enableSecurityHold && (
+                                {isDownloadClick && enableSecurityHold && (
                                     <Grid item xs={12}
                                         md={4} sx={styles.employeeInfogridItem}>
                                         <label className="inputLabels">Security Hold:</label>
                                         <Box >
-                                            {empInfo ? <Typography   sx={styles.salarySlipData}><span dangerouslySetInnerHTML={{ __html: rupeeSymbolSVG }} />{empInfo.security_hold?.toLocaleString("en-US")}</Typography> : ""}
+                                            {empInfo ? <Typography sx={styles.salarySlipData}><span dangerouslySetInnerHTML={{ __html: rupeeSymbolSVG }} />{empInfo.security_hold?.toLocaleString("en-US")}</Typography> : ""}
                                         </Box>
                                     </Grid>
                                 )}
@@ -603,7 +601,7 @@ export default function SalarySlipFormat({ empInfo, setEmpInfo, isDownloadClick,
                                     <Grid item xs={12} md={8} sx={styles.employeeInfogridItem}>
                                         <label className="inputLabels">Gross Salary:</label>
                                         <Box sx={styles.inputValues}>
-                                            <Typography   sx={styles.salarySlipData}>{empInfo && (<span><span dangerouslySetInnerHTML={{ __html: rupeeSymbolSVG }} />{empInfo.salary?.toLocaleString("en-US")}</span>)}</Typography>
+                                            <Typography sx={styles.salarySlipData}>{empInfo && (<span><span dangerouslySetInnerHTML={{ __html: rupeeSymbolSVG }} />{empInfo.salary?.toLocaleString("en-US")}</span>)}</Typography>
                                         </Box>
                                     </Grid>
                                 )}
@@ -730,7 +728,7 @@ export default function SalarySlipFormat({ empInfo, setEmpInfo, isDownloadClick,
                                             <Box>
                                                 {isDownloadClick ? (
                                                     <Typography
-                                                    sx={styles.salarySlipData}
+                                                        sx={styles.salarySlipData}
                                                         className="leavesCount"
                                                     >
                                                         {empInfo ? empInfo?.calculation : ""}
@@ -782,9 +780,9 @@ export default function SalarySlipFormat({ empInfo, setEmpInfo, isDownloadClick,
                                                 type="number"
                                                 variant="outlined"
                                                 name="security_hold"
-                                                disabled={enableSecurityHold}
-                                                value={empInfo ? empInfo?.security_hold : ''}
-                                                sx={[styles.allcharges, { visibility: enableSecurityHold ? 'hidden' : 'visible' }]}
+                                                disabled={!enableSecurityHold}
+                                                value={empInfo ? empInfo.security_hold : ''}
+                                                sx={[styles.allcharges, { visibility: enableSecurityHold ? 'visible' : 'hidden' }]}
                                                 onChange={handleDeduction}
                                             />
                                         </Grid>
@@ -815,7 +813,8 @@ export default function SalarySlipFormat({ empInfo, setEmpInfo, isDownloadClick,
                                             <TableCell>Basic</TableCell>
                                             <TableCell>
                                                 {isDownloadClick ?
-                                                    salaryDescription.basic && (<span><span dangerouslySetInnerHTML={{ __html: rupeeSymbolSVG }}/>{salaryDescription?.basic.toLocaleString("en-US", { minimumFractionDigits: 2 })}</span>)
+                                                    salaryDescription.basic && (<span><span dangerouslySetInnerHTML={{ __html: rupeeSymbolSVG }} />{salaryDescription?.basic.toLocaleString("en-US", { minimumFractionDigits: 2 })}</span>)
+                                                    // 
                                                     :
                                                     salaryDescription.basic && (<span>{salaryDescription?.basic.toLocaleString("en-US", { minimumFractionDigits: 2 })}</span>)
                                                 }
@@ -824,7 +823,7 @@ export default function SalarySlipFormat({ empInfo, setEmpInfo, isDownloadClick,
                                             <TableCell>
                                                 {isDownloadClick ? (
                                                     empInfo ? (
-                                                        <span><span dangerouslySetInnerHTML={{ __html: rupeeSymbolSVG }} />{empInfo?.provident_fund.toLocaleString("en-US", { minimumFractionDigits: 2 })}</span>
+                                                        <span><span dangerouslySetInnerHTML={{ __html: rupeeSymbolSVG }} />{empInfo?.provident_fund}</span>
                                                     ) : (
                                                         ""
                                                     )
@@ -856,7 +855,7 @@ export default function SalarySlipFormat({ empInfo, setEmpInfo, isDownloadClick,
                                             <TableCell>
                                                 {isDownloadClick ? (
                                                     empInfo ? (
-                                                        <span><span dangerouslySetInnerHTML={{ __html: rupeeSymbolSVG }} />{empInfo?.esi?.toLocaleString("en-US", { minimumFractionDigits: 2 })}</span>
+                                                        <span><span dangerouslySetInnerHTML={{ __html: rupeeSymbolSVG }} />{empInfo?.esi}</span>
                                                     ) : (
                                                         ""
                                                     )
@@ -885,7 +884,7 @@ export default function SalarySlipFormat({ empInfo, setEmpInfo, isDownloadClick,
                                             <TableCell>
                                                 {isDownloadClick ? (
                                                     empInfo ? (
-                                                        <span><span dangerouslySetInnerHTML={{ __html: rupeeSymbolSVG }} />{empInfo?.loan?.toLocaleString("en-US", { minimumFractionDigits: 2 })}</span>
+                                                        <span><span dangerouslySetInnerHTML={{ __html: rupeeSymbolSVG }} />{empInfo?.loan}</span>
                                                     ) : (
                                                         ""
                                                     )
@@ -916,7 +915,7 @@ export default function SalarySlipFormat({ empInfo, setEmpInfo, isDownloadClick,
                                             <TableCell>Profession Tax</TableCell>
                                             <TableCell>
                                                 {isDownloadClick ? (
-                                                    empInfo && (<span><span dangerouslySetInnerHTML={{ __html: rupeeSymbolSVG }} />{empInfo?.profession_tax?.toLocaleString("en-US", { minimumFractionDigits: 2 })}</span>)
+                                                    empInfo && (<span><span dangerouslySetInnerHTML={{ __html: rupeeSymbolSVG }} />{empInfo?.profession_tax}</span>)
                                                 ) : (
                                                     <TextField
                                                         type="number"
@@ -1030,7 +1029,7 @@ export default function SalarySlipFormat({ empInfo, setEmpInfo, isDownloadClick,
                                                 className="bold"
                                             >
                                                 {isDownloadClick ? (
-                                                    empInfo && (<span><span dangerouslySetInnerHTML={{ __html: rupeeSymbolSVG }} />{empInfo?.gross_salary?.toLocaleString("en-US", { minimumFractionDigits: 2 })}</span>)
+                                                    empInfo && (<span><span dangerouslySetInnerHTML={{ __html: rupeeSymbolSVG }} />{empInfo?.gross_salary}</span>)
                                                 ) : (
                                                     <TextField
                                                         type="number"
@@ -1046,7 +1045,7 @@ export default function SalarySlipFormat({ empInfo, setEmpInfo, isDownloadClick,
                                             <TableCell>Total Deductions</TableCell>
                                             <TableCell>
                                                 {isDownloadClick ?
-                                                    totalDeduction ? (<span><span dangerouslySetInnerHTML={{ __html: rupeeSymbolSVG }} />{totalDeduction?.toLocaleString("en-US", { minimumFractionDigits: 2 })}</span>) : <span>&#8377;0.00</span>
+                                                    totalDeduction ? (<span><span dangerouslySetInnerHTML={{ __html: rupeeSymbolSVG }} />{totalDeduction}</span>) : <span>&#8377;0.00</span>
                                                     :
                                                     totalDeduction ? (<span>{totalDeduction?.toLocaleString("en-US")}</span>) : 0
                                                 }
@@ -1064,7 +1063,7 @@ export default function SalarySlipFormat({ empInfo, setEmpInfo, isDownloadClick,
 
                                         <TableRow>
                                             <TableCell ></TableCell>
-                                            <TableCell  sx={styles.allcharges} className="blank">-</TableCell>
+                                            <TableCell sx={styles.allcharges} className="blank">-</TableCell>
                                             <TableCell
                                                 sx={styles.boldTableCell}
                                                 rowSpan={2}
@@ -1076,7 +1075,7 @@ export default function SalarySlipFormat({ empInfo, setEmpInfo, isDownloadClick,
                                                 rowSpan={2}
                                             >
                                                 {isDownloadClick ? (
-                                                    empInfo && empInfo?.net_salary && (<span><span dangerouslySetInnerHTML={{ __html: rupeeSymbolSVG }} />{empInfo?.net_salary?.toLocaleString("en-US", { minimumFractionDigits: 2 })}</span>)
+                                                    empInfo && empInfo?.net_salary && (<span><span dangerouslySetInnerHTML={{ __html: rupeeSymbolSVG }} />{empInfo?.net_salary}</span>)
                                                 ) : (
                                                     <TextField
                                                         variant="outlined"
@@ -1181,7 +1180,7 @@ export default function SalarySlipFormat({ empInfo, setEmpInfo, isDownloadClick,
                                 />
 
                             </Box>
-                            <Typography sx={styles.boldHeading}  className='signatureLabel'>Authorized Signature</Typography>
+                            <Typography sx={styles.boldHeading} className='signatureLabel'>Authorized Signature</Typography>
 
                         </Box>
 
@@ -1189,7 +1188,7 @@ export default function SalarySlipFormat({ empInfo, setEmpInfo, isDownloadClick,
                     <p style={styles.note} className='salary-note'>Note: This is computer generated pay slip which does not require authentication</p>
                 </Box>
             </PDFExport >
-            
+
         </>
     )
 }

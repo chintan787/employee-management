@@ -82,7 +82,6 @@ export default function EmployeesTable(props) {
   useEffect(() => {
     if (empData.length > 0) {
       empData.sort(customSort);
-      console.log("activeTabValue", activeTabValue)
       const finalResult = empData.filter((emp) => emp.emp_status === activeTabValue)
       setSortedData(finalResult);
       const currentEmp = empData.filter((emp) => emp.emp_status === 1)
@@ -148,7 +147,6 @@ export default function EmployeesTable(props) {
   useEffect(() => {
     if (empProfileData) {
       if (emp_Code) {
-        console.log("active", activeTabValue)
         if (empProfileData.emp_status !== 0) {
           dispatch(deleteEmployeeByStatus(emp_Code, setShowLoader, navigate, setAnchorEl));
 
@@ -166,13 +164,11 @@ export default function EmployeesTable(props) {
   }, [empProfileData])
 
   useEffect(() => {
-    console.log("deleteEmpData", deleteEmpData)
     if (deleteEmpData?.acknowledged === true) {
       dispatch(getEmployees(setLoading, navigate))
     }
   }, [deleteEmpData])
   useEffect(() => {
-    console.log("deleteEmpStatus", deleteEmpStatus)
     if (deleteEmpStatus?.status === 200) {
       dispatch(getEmployees(setLoading, navigate))
     }
